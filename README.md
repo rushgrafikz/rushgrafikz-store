@@ -1,12 +1,12 @@
 # RUSH GRAFIKZ Storefront
 
-Plain HTML/CSS/JS storefront. No build step, no framework, no Node needed to run it.
-Products are listed in `products.json` — that's the only file you touch to add or
-change a product.
+This is a single self-contained `index.html` (your original build: cart drawer, quick-view
+modals with image galleries, search, bundles, terms checkbox) with real product photos
+living in `assets/images/` instead of base64 embedded in the file.
 
 ## Run it locally
 
-Just open `index.html` in a browser, or run a tiny local server:
+Open `index.html` in a browser, or:
 
 ```
 python3 -m http.server 8000
@@ -14,80 +14,49 @@ python3 -m http.server 8000
 
 then visit `http://localhost:8000`
 
-## Push to GitHub (first time)
+## Push updates to GitHub
 
 ```
-cd rushgrafikz-store
 git add .
-git commit -m "Initial storefront"
+git commit -m "Update storefront"
+git push
 ```
 
-Then create an empty repo on github.com (no README, no .gitignore — you already have one),
-copy the URL it gives you, and:
+Cloudflare Pages auto-redeploys on every push, live at rushgrafikz-store.pages.dev.
 
-```
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git branch -M main
-git push -u origin main
-```
+## Adding or changing a product
 
-## Deploy (pick one — Cloudflare Pages, Vercel, or Netlify)
+Since this file doesn't use a separate data file, a product lives in **two places**
+in `index.html` — keep them in sync:
 
-All three work the same way for this project since it's plain static files:
+1. **The card in the page** — find the `.card` (individual designs) or `.phy-card`
+   (physical products) block with the product's name, and edit the name, price, and
+   image path (`src="assets/images/your-file.jpg"`).
+2. **The `PRODUCTS` array** — search for `const PRODUCTS = [` near the bottom of the
+   file. Each entry needs `name`, `price`, `inclusions` (the bullet list shown in the
+   quick-view popup), and `imgs` (array of image paths — this is what the gallery/zoom
+   view shows when someone taps a product).
 
-- Connect your GitHub account, pick this repo
-- Framework preset: **None**
-- Build command: **(leave empty)**
-- Output directory: **/** (project root)
-- Deploy
+To add a new product photo: drop the image file into `assets/images/`, reference it
+by that filename in both spots above, commit, push.
 
-Every future `git push` auto-redeploys.
+## Images
 
-Cloudflare Pages is the pick if you want unlimited free bandwidth. Vercel/Netlify
-work fine too and the setup steps are nearly identical.
+77 real product photos live in `assets/images/` (about 13MB total). These are served
+directly by Cloudflare Pages, no separate image host needed for now. If load times
+start feeling slow on mobile data as the catalog grows, that's the point to move to
+ImageKit or similar for automatic compression, not before.
 
-## Swapping the mockup images for real ones
+Do not hotlink product images from Google Drive. Keep Drive for digital delivery
+links only (sending buyers their files after payment).
 
-Right now every product image in `products.json` is a placeholder (a base64 SVG
-with the product name on it) so the site works with zero setup. Before this goes
-live for real customers:
+## Still not wired up
 
-1. Create a free ImageKit (or Cloudinary) account
-2. Upload your real product photo, copy the URL it gives you
-3. In `products.json`, replace that product's `"image"` value with the ImageKit URL
-4. Commit and push — the live site updates automatically
-
-Do **not** use Google Drive links for product photos on the storefront — Drive
-isn't built for public hotlinking and will rate-limit or break. Keep Drive for
-digital delivery links only (sending buyers their files after payment).
-
-## Adding a new product
-
-Open `products.json` and add an entry like this:
-
-```json
-{
-  "id": "unique-id-01",
-  "name": "Product Name",
-  "category": "digital",
-  "price": 199,
-  "currency": "PHP",
-  "description": "Short description buyers will see.",
-  "delivery": "Google Drive link sent after payment confirmation",
-  "image": "https://your-imagekit-url-here"
-}
-```
-
-For physical products, use `"category": "physical"` and a `"shipping"` field
-instead of `"delivery"`.
-
-Save, commit, push. That's the whole workflow going forward — no code changes
-needed to add products.
-
-## Still to wire up
-
-- The "Order this" button currently just shows an alert. Point it at your Tally
-  order form link or a Facebook Messenger link inside `js/app.js` → `orderProduct()`.
-- Facebook page reviews embed (mentioned in your notes) — add that as a widget
-  in `index.html` when you're ready.
-- Payment QR code image and instructions on the order form / checkout flow.
+- **Checkout**: the cart currently just lists item names client-side, nothing submits
+  anywhere yet. Needs a real checkout flow (your notes mention a Tally form + manual
+  QR payment + proof upload).
+- **Physical products page**: still has 3 placeholder sample items (tumbler, keychain,
+  mug), marked "Sample layout — real products go here next" in the code. Swap these
+  for your actual physical product lineup the same way as the digital products above.
+- **About page**: placeholder, waiting on your brand story/copy.
+- **Reviews page**: placeholder, waiting on your Facebook reviews to embed.

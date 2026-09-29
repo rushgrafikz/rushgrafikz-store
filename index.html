@@ -1,55 +1,785 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RUSH GRAFIKZ — Print it. Craft it. Create it.</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RUSH GRAFIKZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#14746F;--coral:#FF8A5B;--text:#1F2A2A;--muted:#5C6B6B;--border:#ECEAE4;--surface:#F4F1EC;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;overflow-x:hidden;}
+body{font-family:'Inter',sans-serif;background:#FFFFFF;color:var(--text);}
+
+/* ---- shared header ---- */
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);}
+nav{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px clamp(16px,5vw,64px);}
+.logo{height:clamp(44px,6vw,64px);width:auto;display:block;cursor:pointer;}
+.navlinks{display:flex;gap:clamp(14px,2.2vw,26px);align-items:center;font-size:clamp(13px,1.4vw,15px);flex-wrap:wrap;}
+.navlinks a{color:var(--text);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent;}
+.navlinks a.active{color:var(--teal);font-weight:600;border-bottom-color:var(--teal);}
+.cartbtn{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 13px;font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:7px;}
+.searchbox{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 4px 4px 12px;gap:4px;}
+.searchbox input{border:none;background:transparent;outline:none;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);width:clamp(90px,14vw,160px);}
+.searchbox input::placeholder{color:#A9A49A;}
+.search-btn{background:var(--teal);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cartcount{background:var(--coral);color:#4A1B0C;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+
+/* ---- page switching ---- */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ---- home / hero ---- */
+.hero{width:100%;text-align:center;padding:clamp(40px,7vw,72px) clamp(16px,5vw,64px);}
+h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(30px,6vw,52px);line-height:1.14;color:var(--teal);margin-bottom:clamp(14px,2.5vw,20px);}
+h1 .accent{color:var(--coral);}
+.hero-banner{width:100%;max-width:min(880px,94vw);height:auto;display:block;margin:0 auto clamp(28px,4vw,40px);}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn{font-family:'Poppins',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:9px;}
+.btn-primary{background:var(--coral);color:#4A1B0C;font-size:clamp(14px,1.6vw,16px);padding:14px clamp(20px,3vw,32px);display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;}
+.btn-outline{background:#FFFFFF;color:var(--teal);border:1.5px solid var(--teal);font-size:clamp(14px,1.6vw,16px);padding:14px clamp(20px,3vw,32px);display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;}
+@media(max-width:600px){.cta{flex-direction:column;align-items:center;}.btn-primary,.btn-outline{width:100%;max-width:340px;}}
+
+/* ---- shared section heads ---- */
+section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
+.sec-head{margin-bottom:clamp(20px,3vw,30px);text-align:center;}
+.sec-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(26px,3.6vw,34px);}
+.sec-title .dot{color:var(--coral);}
+.sec-sub{font-size:14px;color:var(--muted);margin:6px auto 0;max-width:560px;line-height:1.5;}
+
+/* ---- digital feature tile ---- */
+.feature-wrap{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(24px,4vw,40px);margin-bottom:clamp(8px,2vw,12px);}
+.feature-card{width:100%;max-width:300px;}
+.btn-muted{background:var(--surface);color:var(--muted);border:1px solid var(--border);font-size:13.5px;padding:11px;cursor:default;}
+.feature-img{aspect-ratio:1/1;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid var(--border);position:relative;transition:box-shadow .15s, transform .15s;}
+.feature-img:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
+.feature-img.static{cursor:default;}
+.feature-img.static:hover{box-shadow:none;transform:none;}
+.feature-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.tap-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(20,116,111,0.92);color:#fff;font-size:11px;font-weight:500;padding:5px 12px;border-radius:14px;white-space:nowrap;}
+.feature-body{text-align:center;padding-top:14px;}
+.feature-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;}
+.feature-price{font-family:'Poppins',sans-serif;font-weight:800;font-size:24px;color:var(--teal);margin-top:4px;}
+.feature-actions{display:flex;flex-direction:column;gap:9px;margin-top:14px;}
+.btn-coral{background:var(--coral);color:#4A1B0C;}
+.btn-coral.small{font-size:12px;padding:8px 13px;border-radius:7px;}
+.btn-coral.full{width:100%;margin-top:8px;}
+.btn-coral.big{font-size:15px;padding:13px;}
+.btn-outline-teal{background:#fff;color:var(--teal);border:1.5px solid var(--teal);font-size:13.5px;padding:11px;}
+.individual-wrap{display:none;margin-top:clamp(36px,5vw,52px);padding-top:clamp(28px,4vw,36px);border-top:1px solid var(--border);}
+.individual-wrap.open{display:block;}
+.individual-head{font-family:'Poppins',sans-serif;font-weight:600;font-size:17px;margin-bottom:20px;text-align:center;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,220px));justify-content:center;gap:clamp(14px,2.2vw,20px);}
+.card{border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;}
+.card:hover{border-color:var(--teal);box-shadow:0 8px 22px rgba(20,116,111,.12);transform:translateY(-3px);}
+.thumb{width:100%;aspect-ratio:1/1;background:var(--surface);overflow:hidden;}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.body{padding:12px 12px 14px;display:flex;flex-direction:column;gap:5px;flex:1;}
+.name{font-size:13.5px;font-weight:700;line-height:1.3;min-height:2.5em;}
+.cardprice{font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;color:var(--teal);}
+.incl-label{font-size:10px;font-weight:700;letter-spacing:0.6px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.incl-list{list-style:none;display:flex;flex-direction:column;gap:3px;}
+.incl-list li{font-size:11.5px;color:var(--text);line-height:1.35;padding-left:15px;position:relative;}
+.incl-list li:before{content:"\2713";position:absolute;left:0;color:var(--teal);font-weight:700;font-size:11px;}
+.incl-list li.more{color:var(--muted);font-style:italic;padding-left:15px;}
+.incl-list li.more:before{content:"";}
+
+/* ---- physical placeholder grid ---- */
+.phy-note{display:inline-block;background:var(--surface);color:var(--muted);font-size:12px;padding:6px 12px;border-radius:20px;margin-bottom:20px;}
+.phy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(16px,2.5vw,24px);}
+.phy-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff;transition:border-color .15s;}
+.phy-card:hover{border-color:#D8D5CC;}
+.phy-thumb{width:100%;aspect-ratio:1/1;background:var(--surface);display:flex;align-items:center;justify-content:center;position:relative;}
+.phy-thumb i{font-size:34px;color:#B4B2A9;font-style:normal;}
+.phy-tag{position:absolute;top:10px;left:10px;font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;}
+.phy-body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.phy-name{font-size:14.5px;font-weight:500;line-height:1.35;}
+.phy-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.phy-pill{font-size:11px;background:var(--surface);color:var(--muted);padding:3px 8px;border-radius:6px;}
+.phy-meta{font-size:12px;color:var(--muted);}
+.phy-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:6px;}
+.phy-price{font-family:'Poppins',sans-serif;font-weight:600;font-size:16px;}
+.btn-teal{font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;padding:8px 14px;border-radius:7px;border:none;cursor:pointer;white-space:nowrap;background:var(--teal);color:#FFFFFF;}
+@media(max-width:420px){.phy-row{flex-direction:column;align-items:stretch;gap:8px;}.phy-row .btn-teal{width:100%;text-align:center;}}
+
+/* ---- about / reviews placeholders ---- */
+.placeholder{max-width:480px;margin:clamp(30px,6vw,60px) auto;text-align:center;padding:clamp(28px,5vw,40px) 24px;border:1px dashed var(--border);border-radius:16px;}
+.ph-icon{font-size:34px;margin-bottom:10px;}
+.ph-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:19px;margin-bottom:8px;}
+.ph-sub{font-size:13.5px;color:var(--muted);line-height:1.6;}
+
+/* ---- cart drawer ---- */
+.drawer{position:fixed;top:0;right:-360px;width:340px;max-width:88vw;height:100%;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,.12);z-index:40;transition:right .25s ease;display:flex;flex-direction:column;}
+.drawer.open{right:0;}
+.drawer-head{padding:18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.drawer-head b{font-family:'Poppins',sans-serif;font-size:15px;}
+.drawer-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.drawer-list{flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px;}
+.drawer-item{font-size:13px;padding:8px 0;border-bottom:1px solid var(--border);}
+.drawer-empty{color:var(--muted);font-size:13px;padding:20px 0;text-align:center;}
+.drawer-foot{padding:14px 18px 18px;border-top:1px solid var(--border);}
+.notice{background:#FFF4EC;border:1px solid #FFD9BE;border-radius:8px;padding:10px 12px;font-size:12px;color:#7A3E12;line-height:1.5;margin-bottom:12px;display:flex;gap:8px;}
+.notice .ic{flex-shrink:0;font-size:14px;}
+.terms{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.terms b{color:var(--text);display:block;margin-bottom:4px;font-size:11.5px;}
+.terms ul{margin:0;padding-left:16px;}
+.terms li{margin-bottom:3px;}
+.agree{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--text);margin-bottom:12px;cursor:pointer;}
+.agree input{margin-top:2px;}
+.btn-checkout{width:100%;background:var(--teal);color:#fff;font-family:'Poppins',sans-serif;font-weight:600;font-size:14px;padding:12px;border:none;border-radius:8px;cursor:pointer;opacity:0.5;pointer-events:none;transition:opacity .15s;}
+.btn-checkout.enabled{opacity:1;pointer-events:auto;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:30;opacity:0;pointer-events:none;transition:opacity .2s;}
+.overlay.open{opacity:1;pointer-events:auto;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;font-size:13px;padding:10px 18px;border-radius:8px;opacity:0;transition:all .25s;z-index:50;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ---- quick view modal ---- */
+.qv-overlay{position:fixed;inset:0;background:rgba(20,20,20,.55);z-index:60;display:none;align-items:center;justify-content:center;padding:20px;}
+.qv-overlay.open{display:flex;}
+.qv-modal{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;position:relative;}
+.qv-close{position:absolute;top:12px;right:12px;background:#fff;border:1px solid var(--border);border-radius:50%;width:32px;height:32px;font-size:18px;cursor:pointer;color:var(--muted);z-index:2;}
+.qv-media{position:relative;}
+.qv-gallery{width:100%;aspect-ratio:1/1;background:var(--surface);display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.qv-gallery::-webkit-scrollbar{display:none;}
+.qv-slide{flex:0 0 100%;width:100%;height:100%;scroll-snap-align:start;position:relative;}
+.qv-slide img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;}
+.qv-zoom-hint{position:absolute;bottom:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--text);z-index:2;pointer-events:none;}
+.zoom-overlay{position:fixed;inset:0;background:rgba(10,10,10,.9);z-index:70;display:none;align-items:center;justify-content:center;padding:24px;}
+.zoom-overlay.open{display:flex;}
+.zoom-overlay img{max-width:94vw;max-height:94vh;object-fit:contain;display:block;}
+.zoom-close{position:absolute;top:16px;right:20px;background:rgba(255,255,255,.92);border:none;border-radius:50%;width:38px;height:38px;font-size:20px;cursor:pointer;color:var(--text);}
+.qv-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--border);color:var(--text);font-size:20px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:2;}
+.qv-arrow-prev{left:10px;}
+.qv-arrow-next{right:10px;}
+.qv-dots{display:none;justify-content:center;gap:6px;padding:10px 0 0;}
+.qv-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;flex:0 0 auto;}
+.qv-dot.active{background:var(--teal);}
+.qv-body{padding:22px 24px 26px;}
+.qv-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;margin-bottom:6px;}
+.qv-price{font-family:'Poppins',sans-serif;font-weight:800;font-size:24px;color:var(--teal);margin-bottom:18px;}
+.qv-incl-label{font-size:12px;font-weight:700;letter-spacing:0.8px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+.qv-incl-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.qv-incl-list li{font-size:14.5px;color:var(--text);line-height:1.4;padding-left:24px;position:relative;}
+.qv-incl-list li:before{content:"\2713";position:absolute;left:0;top:0;color:#fff;background:var(--teal);width:17px;height:17px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.qv-add{width:100%;padding:14px;font-size:15px;}
+@media(max-width:480px){.qv-modal{max-height:94vh;}}
+</style></head>
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <div class="brand">
-      <span class="brand-name">RUSH GRAFIKZ</span>
-      <span class="brand-sub">RG Crafts &amp; Print Services</span>
+<header>
+<nav>
+  <img class="logo" src="assets/images/img-1d8311ff5c.png" alt="Rush Grafikz — RG Crafts & Print Services" onclick="go('home')">
+  <div class="navlinks">
+    <a href="#home" data-page="home" onclick="go('home',event)">Home</a>
+    <a href="#physical" data-page="physical" onclick="go('physical',event)">Shop</a>
+    <a href="#digital" data-page="digital" onclick="go('digital',event)">Digital</a>
+    <a href="#about" data-page="about" onclick="go('about',event)">About</a>
+    <a href="#reviews" data-page="reviews" onclick="go('reviews',event)">Reviews</a>
+    <div class="searchbox">
+      <input type="text" id="searchInput" placeholder="Search products..." onkeydown="if(event.key==='Enter'){runSearch();}">
+      <button class="search-btn" onclick="runSearch()" aria-label="Search">&#128269;</button>
     </div>
-    <nav class="tabs" id="category-tabs">
-      <button class="tab-btn active" data-category="all">All</button>
-      <button class="tab-btn" data-category="digital">Digital</button>
-      <button class="tab-btn" data-category="physical">Physical</button>
-    </nav>
+    <button class="cartbtn" onclick="openCart()">Cart <span class="cartcount" id="cartcount">0</span></button>
   </div>
+</nav>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <h1>Print it. Craft it. Create it.</h1>
-    <p>Custom prints, crafts, and digital designs made in Cagayan de Oro.</p>
+<main>
+
+<section class="page" id="page-home" data-page="home">
+  <div class="hero">
+    <h1>Print it. Craft it.<br><span class="accent">Create it.</span></h1>
+    <img class="hero-banner" src="assets/images/img-0a59ae8baa.png" alt="Custom prints, handmade crafts, and digital designs all in one place.">
+    <div class="cta">
+      <a class="btn btn-primary" href="#digital" onclick="go('digital',event)">&#11015; Shop Digital Products</a>
+      <a class="btn btn-outline" href="#physical" onclick="go('physical',event)">&#128230; Shop Physical Products</a>
+    </div>
   </div>
 </section>
 
-<main class="wrap">
-  <div id="product-grid" class="product-grid">
-    <!-- product cards injected by js/app.js -->
+<section class="page" id="page-physical" data-page="physical">
+  <div class="inner">
+    <div class="sec-head">
+      <div class="sec-title">Physical Products<span class="dot">.</span></div>
+      <div class="sec-sub">Custom prints and handmade crafts, made to order in Cagayan de Oro.</div>
+    </div>
+    <div class="phy-note">Sample layout — real products go here next</div>
+    <div class="phy-grid">
+
+      <div class="phy-card" data-name="Custom Photo Print Tumbler">
+        <div class="phy-thumb"><span class="phy-tag">Made to order &middot; 3&ndash;5 days</span><i>&#127978;</i></div>
+        <div class="phy-body">
+          <div class="phy-name">Custom Photo Print Tumbler</div>
+          <div class="phy-pills"><span class="phy-pill">350ml</span><span class="phy-pill">500ml</span></div>
+          <div class="phy-meta">Ships nationwide</div>
+          <div class="phy-row"><span class="phy-price">&#8369;350</span><button class="btn-teal" onclick="addToCart('Custom Photo Print Tumbler')">Add to cart</button></div>
+        </div>
+      </div>
+
+      <div class="phy-card" data-name="Handmade Acrylic Keychain">
+        <div class="phy-thumb"><span class="phy-tag">In stock</span><i>&#128273;</i></div>
+        <div class="phy-body">
+          <div class="phy-name">Handmade Acrylic Keychain</div>
+          <div class="phy-pills"><span class="phy-pill">Round</span><span class="phy-pill">Custom shape</span></div>
+          <div class="phy-meta">Ships nationwide</div>
+          <div class="phy-row"><span class="phy-price">&#8369;120</span><button class="btn-teal" onclick="addToCart('Handmade Acrylic Keychain')">Add to cart</button></div>
+        </div>
+      </div>
+
+      <div class="phy-card" data-name="Personalized Ceramic Mug">
+        <div class="phy-thumb"><span class="phy-tag">Made to order &middot; 2&ndash;4 days</span><i>&#9749;</i></div>
+        <div class="phy-body">
+          <div class="phy-name">Personalized Ceramic Mug</div>
+          <div class="phy-pills"><span class="phy-pill">11oz</span><span class="phy-pill">15oz</span></div>
+          <div class="phy-meta">Ships nationwide</div>
+          <div class="phy-row"><span class="phy-price">&#8369;280</span><button class="btn-teal" onclick="addToCart('Personalized Ceramic Mug')">Add to cart</button></div>
+        </div>
+      </div>
+
+    </div>
   </div>
+</section>
+
+<section class="page" id="page-digital" data-page="digital">
+  <div class="inner">
+    <div class="sec-head">
+      <div class="sec-title">Digital Designs &amp; Templates<span class="dot">.</span></div>
+      <div class="sec-sub">Ready-to-print files, editable Canva templates, and mockup sets for your printing, crafting, and creative needs — delivered via Google Drive after checkout.</div>
+    </div>
+
+    <div class="feature-wrap">
+      <div class="feature-card">
+        <div class="feature-img" onclick="toggleGrid()">
+          <img src="assets/images/img-6700203ec5.jpg" alt="Button Badge Bundle">
+          <div class="tap-hint">Tap to see all 15 designs</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Button Badge Bundle</div>
+          <div class="feature-price">&#8369;350</div>
+          <div class="feature-actions">
+            <button class="btn btn-coral big" onclick="addToCart('Button Badge Bundle (All 15 designs)')">Add to cart</button>
+            <button class="btn btn-outline-teal" onclick="toggleGrid()">Shop individual designs instead</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-img" onclick="toggleGrid('sticker')">
+          <img src="assets/images/img-9ce3ce3f09.jpg" alt="Sticker Bundle">
+          <div class="tap-hint">Tap to see all 9 designs</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Sticker Bundle</div>
+          <div class="feature-price">&#8369;280</div>
+          <div class="feature-actions">
+            <button class="btn btn-coral big" onclick="addToCart('Sticker Bundle')">Add to cart</button>
+            <button class="btn btn-outline-teal" onclick="toggleGrid('sticker')">Shop individual designs instead</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-img" onclick="toggleGrid('learning')">
+          <img src="assets/images/img-507f39f59e.jpg" alt="Learning Materials - Educational Bundle">
+          <div class="tap-hint">Tap to see all 1 designs</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Learning Materials - Educational Bundle</div>
+          <div class="feature-price">&#8369;299</div>
+          <div class="feature-actions">
+            <button class="btn btn-coral big" onclick="addToCart('Learning Materials - Educational Bundle')">Add to cart</button>
+            <button class="btn btn-outline-teal" onclick="toggleGrid('learning')">Shop individual designs instead</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="individual-wrap" id="individualWrap">
+      <div class="individual-head">Pick one or more.. can be sold separately.</div>
+      <div class="grid">
+        
+    <div class="card" data-name="Drag & Drop Button & Square Badge" onclick="openQuick(0)">
+      <div class="thumb"><img src="assets/images/img-283efa6a90.jpg" alt="Drag & Drop Button & Square Badge" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Drag & Drop Button & Square Badge</div>
+        <div class="cardprice">₱60</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>Button sizes: 58mm, 44mm, 32mm, 25mm</li><li>Square sizes: 50mm, 60mm</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Drag & Drop Button & Square Badge')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Zodiac Set" onclick="openQuick(1)">
+      <div class="thumb"><img src="assets/images/img-fd30d85f32.jpg" alt="Zodiac Set" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Zodiac Set</div>
+        <div class="cardprice">₱55</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>Approx. 13 designs</li><li>Size: 58mm</li><li class="more">+5 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Zodiac Set')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Letter Name + Vintage Flower" onclick="openQuick(2)">
+      <div class="thumb"><img src="assets/images/img-f9dc6c7b2b.jpg" alt="Letter Name + Vintage Flower" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Letter Name + Vintage Flower</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>25+ designs each</li><li>Size: 58mm</li><li class="more">+3 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Letter Name + Vintage Flower')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Teacher's Day Button Badge Set" onclick="openQuick(3)">
+      <div class="thumb"><img src="assets/images/img-4c4d77a40e.jpg" alt="Teacher's Day Button Badge Set" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Teacher's Day Button Badge Set</div>
+        <div class="cardprice">₱55</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>15 designs</li><li>Size: 58mm</li><li class="more">+3 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Teacher's Day Button Badge Set')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Personalized Kid's Name Tag" onclick="openQuick(4)">
+      <div class="thumb"><img src="assets/images/img-c5f1de1772.jpg" alt="Personalized Kid's Name Tag" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Personalized Kid's Name Tag</div>
+        <div class="cardprice">₱65</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20+ designs</li><li>Size: 58mm</li><li class="more">+3 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Personalized Kid's Name Tag')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Personalized Graduation Set" onclick="openQuick(5)">
+      <div class="thumb"><img src="assets/images/img-a2d13bd266.jpg" alt="Personalized Graduation Set" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Personalized Graduation Set</div>
+        <div class="cardprice">₱60</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>10+ designs</li><li>Size: 58mm</li><li class="more">+6 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Personalized Graduation Set')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Padayon Future Profession Set" onclick="openQuick(6)">
+      <div class="thumb"><img src="assets/images/img-a2da7c5f69.jpg" alt="Padayon Future Profession Set" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Padayon Future Profession Set</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>40+ designs (18 professions w/ faceless designs)</li><li>Size: 58mm</li><li class="more">+4 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Padayon Future Profession Set')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="BINI Collection (Chibis/Facecard)" onclick="openQuick(7)">
+      <div class="thumb"><img src="assets/images/img-3bf6cfb36a.jpg" alt="BINI Collection (Chibis/Facecard)" loading="lazy"></div>
+      <div class="body">
+        <div class="name">BINI Collection (Chibis/Facecard)</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>10+ BINI theme</li><li>Size: 58mm</li><li class="more">+4 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('BINI Collection (Chibis/Facecard)')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Sanrio" onclick="openQuick(8)">
+      <div class="thumb"><img src="assets/images/img-cc6698d05e.jpg" alt="Sanrio" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Sanrio</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>Designs: Hello Kitty | Melody | Kuromi | Keroppi | Cinnamoroll</li><li>Size: 58mm</li><li class="more">+5 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Sanrio')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Labubu Macarons" onclick="openQuick(9)">
+      <div class="thumb"><img src="assets/images/img-7b819e8e03.jpg" alt="Labubu Macarons" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Labubu Macarons</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>7 Labubu Macarons characters</li><li>Size: 58mm</li><li class="more">+5 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Labubu Macarons')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="God's Gospel" onclick="openQuick(10)">
+      <div class="thumb"><img src="assets/images/img-03610fe5f8.jpg" alt="God's Gospel" loading="lazy"></div>
+      <div class="body">
+        <div class="name">God's Gospel</div>
+        <div class="cardprice">₱65</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>30 designs</li><li>Sizes: 58mm, 32mm, 25mm</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('God's Gospel')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Country Flags Set" onclick="openQuick(11)">
+      <div class="thumb"><img src="assets/images/img-bd5845ccad.jpg" alt="Country Flags Set" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Country Flags Set</div>
+        <div class="cardprice">₱60</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20 designs</li><li>Sizes: 58mm, 32mm, 25mm</li><li class="more">+4 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Country Flags Set')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Sprunki" onclick="openQuick(12)">
+      <div class="thumb"><img src="assets/images/img-3b88deb27f.jpg" alt="Sprunki" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Sprunki</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20 designs</li><li>Size: 58mm</li><li class="more">+3 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Sprunki')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Mother's Day" onclick="openQuick(13)">
+      <div class="thumb"><img src="assets/images/img-62d422a93a.jpg" alt="Mother's Day" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Mother's Day</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20+ designs</li><li>Size: 58mm</li><li class="more">+4 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Mother's Day')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Valentine's Day" onclick="openQuick(14)">
+      <div class="thumb"><img src="assets/images/img-a2f456846e.jpg" alt="Valentine's Day" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Valentine's Day</div>
+        <div class="cardprice">₱75</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20+ designs</li><li>Size: 58mm</li><li class="more">+6 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Valentine's Day')">Add to cart</button>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <div class="individual-wrap" id="stickerIndividualWrap">
+      <div class="individual-head">Pick one or more.. can be sold separately.</div>
+      <div class="grid">
+        
+    <div class="card" data-name="BINI Stickers Collection" onclick="openQuick(15)">
+      <div class="thumb"><img src="assets/images/img-1ca870e8ba.jpg" alt="BINI Stickers Collection" loading="lazy"></div>
+      <div class="body">
+        <div class="name">BINI Stickers Collection</div>
+        <div class="cardprice">₱90</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>27+ themes (newly added designs, no additional fee)</li><li>Editable Canva template</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('BINI Stickers Collection')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="KPOP/PPOP Stickers Collection" onclick="openQuick(16)">
+      <div class="thumb"><img src="assets/images/img-2372bbc72e.jpg" alt="KPOP/PPOP Stickers Collection" loading="lazy"></div>
+      <div class="body">
+        <div class="name">KPOP/PPOP Stickers Collection</div>
+        <div class="cardprice">₱70</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>10+ themes (newly added designs, no additional fee)</li><li>Editable Canva template</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('KPOP/PPOP Stickers Collection')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Grow A Garden Stickers Collection" onclick="openQuick(17)">
+      <div class="thumb"><img src="assets/images/img-41b2d930c7.jpg" alt="Grow A Garden Stickers Collection" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Grow A Garden Stickers Collection</div>
+        <div class="cardprice">₱60</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>160+ designs (animals/plants)</li><li>Editable Canva template</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Grow A Garden Stickers Collection')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="SUBJECT Sticker Labels" onclick="openQuick(18)">
+      <div class="thumb"><img src="assets/images/img-900dea9753.jpg" alt="SUBJECT Sticker Labels" loading="lazy"></div>
+      <div class="body">
+        <div class="name">SUBJECT Sticker Labels</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>30+ designs + name labels</li><li>High quality, ready-to-print PDF/PNG</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('SUBJECT Sticker Labels')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="JOURNAL Stickers" onclick="openQuick(19)">
+      <div class="thumb"><img src="assets/images/img-87203ac938.jpg" alt="JOURNAL Stickers" loading="lazy"></div>
+      <div class="body">
+        <div class="name">JOURNAL Stickers</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>100+ aesthetic/realistic designs</li><li>High quality, ready-to-print PDF/PNG</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('JOURNAL Stickers')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="Animals Stickers" onclick="openQuick(20)">
+      <div class="thumb"><img src="assets/images/img-008a5db5c8.jpg" alt="Animals Stickers" loading="lazy"></div>
+      <div class="body">
+        <div class="name">Animals Stickers</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>100+ letters/animals designs</li><li>High quality, ready-to-print PDF/PNG</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('Animals Stickers')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="FATHER'S DAY Stickers" onclick="openQuick(21)">
+      <div class="thumb"><img src="assets/images/img-4a207a30fd.jpg" alt="FATHER'S DAY Stickers" loading="lazy"></div>
+      <div class="body">
+        <div class="name">FATHER'S DAY Stickers</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>100+ aesthetic/realistic designs</li><li>High quality, ready-to-print files</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('FATHER\'S DAY Stickers')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="COUPLE CHIBIS Stickers" onclick="openQuick(22)">
+      <div class="thumb"><img src="assets/images/img-5c1361b434.jpg" alt="COUPLE CHIBIS Stickers" loading="lazy"></div>
+      <div class="body">
+        <div class="name">COUPLE CHIBIS Stickers</div>
+        <div class="cardprice">₱50</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>50+ kawaii designs</li><li>High quality, ready-to-print PDF/PNG</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('COUPLE CHIBIS Stickers')">Add to cart</button>
+      </div>
+    </div>
+    <div class="card" data-name="AESTHETIC KAWAII Stickers" onclick="openQuick(23)">
+      <div class="thumb"><img src="assets/images/img-17f6c5ac41.jpg" alt="AESTHETIC KAWAII Stickers" loading="lazy"></div>
+      <div class="body">
+        <div class="name">AESTHETIC KAWAII Stickers</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>20+ themes (ongoing new designs)</li><li>High quality PNG file</li><li class="more">+2 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('AESTHETIC KAWAII Stickers')">Add to cart</button>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <div class="individual-wrap" id="learningIndividualWrap">
+      <div class="individual-head">Pick one or more.. can be sold separately.</div>
+      <div class="grid">
+        
+    <div class="card" data-name="[Prep-G2] Spelling Bee Book Challenge" onclick="openQuick(24)">
+      <div class="thumb"><img src="assets/images/img-77cfcce16f.jpg" alt="[Prep-G2] Spelling Bee Book Challenge" loading="lazy"></div>
+      <div class="body">
+        <div class="name">[Prep-G2] Spelling Bee Book Challenge</div>
+        <div class="cardprice">₱80</div>
+        <div class="incl-label">Inclusions</div>
+        <ul class="incl-list"><li>100-Day Challenge for Prep-G1</li><li>100-Day Challenge for Grade 2</li><li class="more">+5 more</li></ul>
+        <button class="btn btn-coral small full" onclick="event.stopPropagation();addToCart('[Prep-G2] Spelling Bee Book Challenge')">Add to cart</button>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-about" data-page="about">
+  <div class="inner">
+    <div class="placeholder">
+      <div class="ph-icon">&#128214;</div>
+      <div class="ph-title">About RUSH GRAFIKZ</div>
+      <div class="ph-sub">Your brand story, photos, and what makes RG Crafts &amp; Print Services different goes here. Send me the copy (or bullet points) and I'll build this section next.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-reviews" data-page="reviews">
+  <div class="inner">
+    <div class="placeholder">
+      <div class="ph-icon">&#11088;</div>
+      <div class="ph-title">Customer Reviews</div>
+      <div class="ph-sub">This is where your Facebook page reviews get embedded or shown as curated screenshots. Point me to the reviews you want featured and I'll wire this up.</div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<section class="how-to-order wrap">
-  <h2>How ordering works</h2>
-  <ol>
-    <li>Pick a product and message us or fill out the order form.</li>
-    <li>Pay via GCash, Maya, or the QR code shown at checkout, then send proof of payment.</li>
-    <li>Digital files: Google Drive link sent right after payment. Physical items: shipped via J&amp;T or handed off via Maxim / pickup in CDO.</li>
-  </ol>
-</section>
-
-<footer class="site-footer">
-  <div class="wrap">
-    <p>&copy; <span id="year"></span> RUSH GRAFIKZ — RG Crafts &amp; Print Services, Cagayan de Oro, PH</p>
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head"><b>Your cart</b><button class="drawer-close" onclick="closeCart()">&times;</button></div>
+  <div class="drawer-list" id="drawerList"><div class="drawer-empty">Your cart is empty</div></div>
+  <div class="drawer-foot">
+    <div class="notice"><span class="ic">&#9888;</span><span>Digital items are a <b>digital purchase only</b> — no physical item will be shipped for those. You'll receive a download link after your payment is confirmed.</span></div>
+    <div class="terms">
+      <b>Terms of use (digital files)</b>
+      <ul>
+        <li>You may not resell or share these digital files.</li>
+        <li>You may not reproduce, duplicate, copy, or redistribute these files in any way.</li>
+        <li>You may use these files to create physical products for personal or business use.</li>
+      </ul>
+    </div>
+    <label class="agree"><input type="checkbox" id="agreeBox" onchange="toggleCheckout()"> I have read and agree to the Terms of Use above.</label>
+    <button class="btn-checkout" id="checkoutBtn">Proceed to checkout</button>
   </div>
-</footer>
+</div>
+<div class="toast" id="toast"></div>
 
-<script src="js/app.js"></script>
-</body>
-</html>
+<div class="qv-overlay" id="qvOverlay" onclick="if(event.target===this)closeQuick()">
+  <div class="qv-modal">
+    <button class="qv-close" onclick="closeQuick()">&times;</button>
+    <div class="qv-media">
+      <div class="qv-gallery" id="qvGallery"></div>
+      <button class="qv-arrow qv-arrow-prev" id="qvPrev" onclick="qvNav(-1)">&#8249;</button>
+      <button class="qv-arrow qv-arrow-next" id="qvNext" onclick="qvNav(1)">&#8250;</button>
+    </div>
+    <div class="qv-dots" id="qvDots"></div>
+    <div class="qv-body">
+      <div class="qv-name" id="qvName"></div>
+      <div class="qv-price" id="qvPrice"></div>
+      <div class="qv-incl-label">Inclusions</div>
+      <ul class="qv-incl-list" id="qvInclList"></ul>
+      <button class="btn btn-coral qv-add" id="qvAddBtn">Add to cart</button>
+    </div>
+  </div>
+</div>
+
+<div class="zoom-overlay" id="zoomOverlay" onclick="if(event.target===this)closeZoom()">
+  <button class="zoom-close" onclick="closeZoom()">&times;</button>
+  <img id="zoomImg" src="" alt="">
+</div>
+
+<script>
+const PRODUCTS = [{"name": "Drag & Drop Button & Square Badge", "inclusions": ["Button sizes: 58mm, 44mm, 32mm, 25mm", "Square sizes: 50mm, 60mm", "Video tutorials & guide", "Mockup included"], "price": "\u20b160", "imgs": ["assets/images/img-283efa6a90.jpg"]}, {"name": "Zodiac Set", "inclusions": ["Approx. 13 designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Free magnetic bookmark", "Free notebook cover + insert", "Mockup for posting"], "price": "\u20b155", "imgs": ["assets/images/img-fd30d85f32.jpg"]}, {"name": "Letter Name + Vintage Flower", "inclusions": ["25+ designs each", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template"], "price": "\u20b180", "imgs": ["assets/images/img-f9dc6c7b2b.jpg"]}, {"name": "Teacher's Day Button Badge Set", "inclusions": ["15 designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template"], "price": "\u20b155", "imgs": ["assets/images/img-4c4d77a40e.jpg"]}, {"name": "Personalized Kid's Name Tag", "inclusions": ["20+ designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template"], "price": "\u20b165", "imgs": ["assets/images/img-c5f1de1772.jpg"]}, {"name": "Personalized Graduation Set", "inclusions": ["10+ designs", "Size: 58mm", "Text is replaceable", "Drag & drop template", "PDF (ready-to-print)", "Backing template", "Free 12 stickers", "Free 8 chipbags"], "price": "\u20b160", "imgs": ["assets/images/img-a2d13bd266.jpg"]}, {"name": "Padayon Future Profession Set", "inclusions": ["40+ designs (18 professions w/ faceless designs)", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template", "Free 28 notebook covers"], "price": "\u20b180", "imgs": ["assets/images/img-a2da7c5f69.jpg"]}, {"name": "BINI Collection (Chibis/Facecard)", "inclusions": ["10+ BINI theme", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template", "Free 30+ BINI photocards"], "price": "\u20b180", "imgs": ["assets/images/img-3bf6cfb36a.jpg"]}, {"name": "Sanrio", "inclusions": ["Designs: Hello Kitty | Melody | Kuromi | Keroppi | Cinnamoroll", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template", "Free 5 bookmarks", "Free 5 stickers"], "price": "\u20b150", "imgs": ["assets/images/img-cc6698d05e.jpg"]}, {"name": "Labubu Macarons", "inclusions": ["7 Labubu Macarons characters", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template", "Free 7 bookmarks", "Free 7 stickers"], "price": "\u20b150", "imgs": ["assets/images/img-7b819e8e03.jpg"]}, {"name": "God's Gospel", "inclusions": ["30 designs", "Sizes: 58mm, 32mm, 25mm", "Drag & drop template", "PDF (ready-to-print)"], "price": "\u20b165", "imgs": ["assets/images/img-03610fe5f8.jpg"]}, {"name": "Country Flags Set", "inclusions": ["20 designs", "Sizes: 58mm, 32mm, 25mm", "Drag & drop template", "PDF (ready-to-print)", "OPP label", "Mockup + actual photos for posting"], "price": "\u20b160", "imgs": ["assets/images/img-bd5845ccad.jpg"]}, {"name": "Sprunki", "inclusions": ["20 designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Free stickers w/ bubble head designs"], "price": "\u20b150", "imgs": ["assets/images/img-3b88deb27f.jpg"]}, {"name": "Mother's Day", "inclusions": ["20+ designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template (for pin, pocket mirror, ref magnet/bottle opener)", "Mockup/actual photos for posting"], "price": "\u20b180", "imgs": ["assets/images/img-62d422a93a.jpg"]}, {"name": "Valentine's Day", "inclusions": ["20+ designs", "Size: 58mm", "Drag & drop template", "PDF (ready-to-print)", "Backing template (for card + button pin)", "Mockup/actual photos for posting", "Free Love License card", "Free stickers"], "price": "\u20b175", "imgs": ["assets/images/img-a2f456846e.jpg"]}, {"name": "BINI Stickers Collection", "price": "\u20b190", "inclusions": ["27+ themes (newly added designs, no additional fee)", "Editable Canva template", "Google Drive access link (ready-to-print PNG/PDF)", "Mockup template for posting"], "imgs": ["assets/images/img-1ca870e8ba.jpg", "assets/images/img-df7bfb81d2.jpg", "assets/images/img-efda2e84c1.jpg", "assets/images/img-9eb5f99448.jpg", "assets/images/img-2645198d7d.jpg", "assets/images/img-4e1403f223.jpg", "assets/images/img-32f6ae1f01.jpg", "assets/images/img-4a55bcb876.jpg", "assets/images/img-0a4772f014.jpg", "assets/images/img-d13e8a77f5.jpg", "assets/images/img-bf2189cd08.jpg", "assets/images/img-9d74db5110.jpg", "assets/images/img-dd476c9002.jpg"]}, {"name": "KPOP/PPOP Stickers Collection", "price": "\u20b170", "inclusions": ["10+ themes (newly added designs, no additional fee)", "Editable Canva template", "Google Drive access link (ready-to-print PNG/PDF)", "Mockup template for posting"], "imgs": ["assets/images/img-2372bbc72e.jpg", "assets/images/img-e94be5d3bf.jpg", "assets/images/img-e73909115c.jpg", "assets/images/img-f3a7b0fb8d.jpg", "assets/images/img-ce68993055.jpg", "assets/images/img-81b862dda3.jpg", "assets/images/img-9f40beeea7.jpg", "assets/images/img-05217ef07e.jpg", "assets/images/img-315cac6f8f.jpg", "assets/images/img-e1f68a0b3d.jpg", "assets/images/img-ff95caa015.jpg", "assets/images/img-8b7c90a8d8.jpg", "assets/images/img-1482fe8fd8.jpg", "assets/images/img-550039add8.jpg", "assets/images/img-085b8ad768.jpg", "assets/images/img-8d412e0d40.jpg"]}, {"name": "Grow A Garden Stickers Collection", "price": "\u20b160", "inclusions": ["160+ designs (animals/plants)", "Editable Canva template", "High quality, ready-to-print PDF/PNG", "Mockup template for posting"], "imgs": ["assets/images/img-41b2d930c7.jpg"]}, {"name": "SUBJECT Sticker Labels", "price": "\u20b150", "inclusions": ["30+ designs + name labels", "High quality, ready-to-print PDF/PNG", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-900dea9753.jpg"]}, {"name": "JOURNAL Stickers", "price": "\u20b150", "inclusions": ["100+ aesthetic/realistic designs", "High quality, ready-to-print PDF/PNG", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-87203ac938.jpg", "assets/images/img-19c1793bf1.jpg", "assets/images/img-4115ebae80.jpg"]}, {"name": "Animals Stickers", "price": "\u20b150", "inclusions": ["100+ letters/animals designs", "High quality, ready-to-print PDF/PNG", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-008a5db5c8.jpg"]}, {"name": "FATHER'S DAY Stickers", "price": "\u20b150", "inclusions": ["100+ aesthetic/realistic designs", "High quality, ready-to-print files", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-4a207a30fd.jpg", "assets/images/img-22bfbaed2d.jpg", "assets/images/img-96ac2b8b7c.jpg"]}, {"name": "COUPLE CHIBIS Stickers", "price": "\u20b150", "inclusions": ["50+ kawaii designs", "High quality, ready-to-print PDF/PNG", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-5c1361b434.jpg", "assets/images/img-15a1436081.jpg", "assets/images/img-35098fc353.jpg", "assets/images/img-2a355ae5d0.jpg"]}, {"name": "AESTHETIC KAWAII Stickers", "price": "\u20b180", "inclusions": ["20+ themes (ongoing new designs)", "High quality PNG file", "Editable Canva template", "Mockup template for posting"], "imgs": ["assets/images/img-17f6c5ac41.jpg", "assets/images/img-ebef33da7e.jpg", "assets/images/img-329c822366.jpg", "assets/images/img-f02dfbf03c.jpg", "assets/images/img-8f9aba0f38.jpg"]}, {"name": "[Prep-G2] Spelling Bee Book Challenge", "price": "\u20b180", "inclusions": ["100-Day Challenge for Prep-G1", "100-Day Challenge for Grade 2", "Flipbook video for posting", "Unlock activities, reviews, weekly challenges", "Editable Canva template", "Ready-to-print files", "Actual photos + mockup for posting"], "imgs": ["assets/images/img-77cfcce16f.jpg", "assets/images/img-1199090add.jpg", "assets/images/img-d73ed114eb.jpg", "assets/images/img-b6cb7d2c46.jpg", "assets/images/img-d8139526ab.jpg", "assets/images/img-72eb171710.jpg", "assets/images/img-75438153cd.jpg", "assets/images/img-4b3c846b61.jpg", "assets/images/img-8476c9338f.jpg", "assets/images/img-85adfa62e4.jpg"]}];
+let cart = [];
+
+/* ---- page router ---- */
+function showPage(id, updateHash){
+  document.querySelectorAll('.page').forEach(function(el){ el.classList.remove('active'); });
+  const target = document.getElementById('page-'+id);
+  (target || document.getElementById('page-home')).classList.add('active');
+  document.querySelectorAll('.navlinks a[data-page]').forEach(function(a){
+    a.classList.toggle('active', a.dataset.page === id);
+  });
+  window.scrollTo({top:0, behavior:'auto'});
+  if(updateHash !== false){ history.replaceState(null, '', '#'+id); }
+}
+function go(id, e){
+  if(e) e.preventDefault();
+  showPage(id);
+}
+window.addEventListener('DOMContentLoaded', function(){
+  const initial = (location.hash || '#home').replace('#','');
+  showPage(document.getElementById('page-'+initial) ? initial : 'home', false);
+});
+
+/* ---- cart ---- */
+function addToCart(name){
+  cart.push(name);
+  document.getElementById('cartcount').textContent = cart.length;
+  renderCart();
+  const t = document.getElementById('toast');
+  t.textContent = "Added \"" + name + "\" to cart";
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 1600);
+}
+function renderCart(){
+  const list = document.getElementById('drawerList');
+  if(cart.length===0){ list.innerHTML = '<div class="drawer-empty">Your cart is empty</div>'; return; }
+  list.innerHTML = cart.map(function(n){ return '<div class="drawer-item">'+n+'</div>'; }).join('');
+}
+function openCart(){ document.getElementById('drawer').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+const GRID_IDS = {'': 'individualWrap', 'sticker': 'stickerIndividualWrap', 'learning': 'learningIndividualWrap'};
+function toggleGrid(which){
+  const id = GRID_IDS[which || ''];
+  const el = document.getElementById(id);
+  const opening = !el.classList.contains('open');
+  Object.values(GRID_IDS).forEach(function(otherId){
+    if(otherId !== id){ document.getElementById(otherId).classList.remove('open'); }
+  });
+  el.classList.toggle('open', opening);
+  if(opening){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  clearSearchFilter();
+}
+function clearSearchFilter(){
+  document.querySelectorAll('.card, .phy-card').forEach(function(c){ c.style.display=''; });
+}
+function runSearch(){
+  const input = document.getElementById('searchInput');
+  const q = input.value.trim().toLowerCase();
+  const badgeCards = Array.from(document.querySelectorAll('#individualWrap .card'));
+  const stickerCards = Array.from(document.querySelectorAll('#stickerIndividualWrap .card'));
+  const learningCards = Array.from(document.querySelectorAll('#learningIndividualWrap .card'));
+  const phyCards = Array.from(document.querySelectorAll('.phy-card'));
+  const all = badgeCards.concat(stickerCards, learningCards, phyCards);
+  if(!q){
+    clearSearchFilter();
+    return;
+  }
+  let matchCount = 0, firstMatch = null;
+  all.forEach(function(c){
+    const name = (c.dataset.name || '').toLowerCase();
+    const match = name.indexOf(q) !== -1;
+    c.style.display = match ? '' : 'none';
+    if(match){ matchCount++; if(!firstMatch) firstMatch = c; }
+  });
+  const t = document.getElementById('toast');
+  t.textContent = matchCount ? (matchCount + ' result' + (matchCount>1?'s':'') + ' for "' + input.value.trim() + '"') : ('No products found for "' + input.value.trim() + '"');
+  t.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  if(!firstMatch) return;
+  if(phyCards.includes(firstMatch)){
+    showPage('physical');
+  } else {
+    showPage('digital');
+    const openWhich = badgeCards.includes(firstMatch) ? '' : (stickerCards.includes(firstMatch) ? 'sticker' : 'learning');
+    const openId = GRID_IDS[openWhich];
+    Object.values(GRID_IDS).forEach(function(id){ document.getElementById(id).classList.toggle('open', id===openId); });
+    setTimeout(function(){ firstMatch.scrollIntoView({behavior:'smooth', block:'center'}); }, 50);
+  }
+}
+function toggleCheckout(){
+  const box = document.getElementById('agreeBox');
+  document.getElementById('checkoutBtn').classList.toggle('enabled', box.checked);
+}
+function openQuick(i){
+  const p = PRODUCTS[i];
+  const imgs = (p.imgs && p.imgs.length) ? p.imgs : [p.img];
+  const gallery = document.getElementById('qvGallery');
+  gallery.innerHTML = imgs.map(function(src){ return '<div class="qv-slide"><img src="'+src+'" alt="'+p.name+'" onclick="openZoom(this.src)"><span class="qv-zoom-hint">&#128269;</span></div>'; }).join('');
+  gallery.scrollLeft = 0;
+  requestAnimationFrame(function(){ gallery.scrollLeft = 0; });
+  const dots = document.getElementById('qvDots');
+  const multi = imgs.length > 1;
+  if(multi){
+    dots.style.display = 'flex';
+    dots.innerHTML = imgs.map(function(_,idx){ return '<span class="qv-dot'+(idx===0?' active':'')+'" data-idx="'+idx+'"></span>'; }).join('');
+  } else {
+    dots.style.display = 'none';
+    dots.innerHTML = '';
+  }
+  document.getElementById('qvPrev').style.display = multi ? 'flex' : 'none';
+  document.getElementById('qvNext').style.display = multi ? 'flex' : 'none';
+  document.getElementById('qvName').textContent = p.name;
+  document.getElementById('qvPrice').textContent = p.price;
+  document.getElementById('qvInclList').innerHTML = p.inclusions.map(function(x){ return '<li>'+x+'</li>'; }).join('');
+  const btn = document.getElementById('qvAddBtn');
+  btn.onclick = function(){ addToCart(p.name); };
+  document.getElementById('qvOverlay').classList.add('open');
+}
+function closeQuick(){
+  document.getElementById('qvOverlay').classList.remove('open');
+  const gallery = document.getElementById('qvGallery');
+  gallery.scrollLeft = 0;
+  document.querySelectorAll('.qv-dot').forEach(function(d,i){ d.classList.toggle('active', i===0); });
+}
+function qvNav(dir){
+  const gallery = document.getElementById('qvGallery');
+  gallery.scrollBy({left: dir*gallery.clientWidth, behavior:'smooth'});
+}
+function openZoom(src){
+  document.getElementById('zoomImg').src = src;
+  document.getElementById('zoomOverlay').classList.add('open');
+}
+function closeZoom(){ document.getElementById('zoomOverlay').classList.remove('open'); }
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  closeZoom();
+});
+document.getElementById('qvGallery').addEventListener('scroll', function(){
+  const idx = Math.round(this.scrollLeft / (this.clientWidth || 1));
+  document.querySelectorAll('.qv-dot').forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+});
+document.getElementById('qvDots').addEventListener('click', function(e){
+  if(!e.target.classList.contains('qv-dot')) return;
+  const idx = parseInt(e.target.dataset.idx, 10);
+  const gallery = document.getElementById('qvGallery');
+  gallery.scrollTo({left: idx*gallery.clientWidth, behavior:'smooth'});
+});
+</script>
+
+</body></html>
