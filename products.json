@@ -1,0 +1,62 @@
+[
+  {
+    "id": "digi-invite-01",
+    "name": "Digital Invitation Template Set",
+    "category": "digital",
+    "price": 150,
+    "currency": "PHP",
+    "description": "Editable Canva invitation templates for birthdays, christenings, and events. Instant download after payment.",
+    "delivery": "Google Drive link sent after payment confirmation",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMxNDc0NkYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkludml0ZSBUZW1wbGF0ZXM8L3RleHQ+Cjwvc3ZnPg=="
+  },
+  {
+    "id": "digi-planner-01",
+    "name": "Printable Planner Bundle",
+    "category": "digital",
+    "price": 199,
+    "currency": "PHP",
+    "description": "Undated daily, weekly, and monthly planner pages. Print at home or at any print shop.",
+    "delivery": "Google Drive link sent after payment confirmation",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMxNDc0NkYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlBsYW5uZXIgQnVuZGxlPC90ZXh0Pgo8L3N2Zz4="
+  },
+  {
+    "id": "digi-logo-01",
+    "name": "Custom Logo Design",
+    "category": "digital",
+    "price": 499,
+    "currency": "PHP",
+    "description": "Simple custom logo design, 2 concepts + 2 revisions, delivered as PNG and vector files.",
+    "delivery": "Google Drive link sent after final files are ready",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiMxNDc0NkYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkxvZ28gRGVzaWduPC90ZXh0Pgo8L3N2Zz4="
+  },
+  {
+    "id": "phys-badge-01",
+    "name": "Custom Name Badge Sticker Set",
+    "category": "physical",
+    "price": 150,
+    "currency": "PHP",
+    "description": "Set of 10 waterproof name badge stickers, custom design and text.",
+    "shipping": "CDO: Maxim (buyer pays rider) or pickup. Outside CDO: J&T flat zone rates.",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRjhBNUIiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkJhZGdlIFN0aWNrZXJzPC90ZXh0Pgo8L3N2Zz4="
+  },
+  {
+    "id": "phys-tumbler-01",
+    "name": "Personalized Tumbler Print",
+    "category": "physical",
+    "price": 250,
+    "currency": "PHP",
+    "description": "Custom name or design printed on a 20oz tumbler. Bring your own tumbler or add one for +150.",
+    "shipping": "CDO: Maxim (buyer pays rider) or pickup. Outside CDO: J&T flat zone rates.",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRjhBNUIiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlR1bWJsZXIgUHJpbnQ8L3RleHQ+Cjwvc3ZnPg=="
+  },
+  {
+    "id": "phys-shirt-01",
+    "name": "Custom T-Shirt Print",
+    "category": "physical",
+    "price": 350,
+    "currency": "PHP",
+    "description": "Custom design printed on a plain cotton shirt. 50% downpayment required for custom prints.",
+    "shipping": "CDO: Maxim (buyer pays rider) or pickup. Outside CDO: J&T flat zone rates.",
+    "image": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9IiNGRjhBNUIiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPlQtU2hpcnQgUHJpbnQ8L3RleHQ+Cjwvc3ZnPg=="
+  }
+]
