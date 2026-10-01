@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — RUSH GRAFIKZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#14746F;--coral:#FF8A5B;--text:#1F2A2A;--muted:#5C6B6B;--border:#ECEAE4;--surface:#F4F1EC;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;overflow-x:clip;}
+body{font-family:'Inter',sans-serif;background:#FFFFFF;color:var(--text);}
+
+/* ---- shared header (same as index.html) ---- */
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);}
+nav{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px clamp(16px,5vw,64px);}
+.logo{height:clamp(44px,6vw,64px);width:auto;display:block;cursor:pointer;}
+.navlinks{display:flex;gap:clamp(14px,2.2vw,26px);align-items:center;font-size:clamp(13px,1.4vw,15px);flex-wrap:wrap;}
+.navlinks a{color:var(--text);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent;}
+.backlink{font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;color:#fff;background:var(--teal);text-decoration:none;display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;}
+
+/* ---- checkout page head ---- */
+.co-head{text-align:center;padding:clamp(28px,5vw,44px) clamp(16px,5vw,64px) 4px;}
+.co-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(26px,4vw,34px);}
+.co-title .rg{color:var(--teal);}
+.co-title .accent{color:var(--coral);font-style:italic;}
+.co-wrap{max-width:720px;margin:0 auto;padding:12px clamp(16px,5vw,64px) 60px;}
+iframe{border:none;width:100%;display:block;}
+</style></head>
+<body>
+
+<header>
+<nav>
+  <img class="logo" src="assets/images/img-1d8311ff5c.png" alt="Rush Grafikz — RG Crafts & Print Services" style="cursor:pointer;" onclick="location.href='index.html'">
+  <div class="navlinks">
+    <a href="index.html#home">Home</a>
+    <a href="index.html#physical">Shop</a>
+    <a href="index.html#digital">Digital</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#reviews">Reviews</a>
+    <a class="backlink" href="index.html">&larr; Back to Shop</a>
+  </div>
+</nav>
+</header>
+
+<div class="co-head">
+  <div class="co-title"><span class="rg">RG</span> <span class="accent">Checkout</span></div>
+</div>
+
+<div class="co-wrap">
+  <iframe id="tallyFrame" data-tally-src="" loading="lazy" height="700" title="RG Checkout"></iframe>
+</div>
+
+<script>
+(function(){
+  var qs = window.location.search || '';
+  var base = 'https://tally.so/embed/VL2MYy?hideTitle=1&transparentBackground=1&dynamicHeight=1';
+  var url = qs ? (base + '&' + qs.slice(1)) : base;
+  document.getElementById('tallyFrame').setAttribute('data-tally-src', url);
+})();
+</script>
+<script src="https://tally.so/widgets/embed.js"></script>
+
+</body></html>
