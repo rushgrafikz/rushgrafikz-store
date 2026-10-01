@@ -716,7 +716,7 @@ window.addEventListener('DOMContentLoaded', function(){
 // EDIT THESE: shipping fee per delivery method (PHP). Charged once per order, only if there is a physical item.
 const SHIPPING = { pickup: 0, maxim: 80, jt: 150 };
 const SHIP_LABEL = { pickup: 'Pickup (CDO)', maxim: 'Maxim (CDO)', jt: 'J&T' };
-const TALLY_URL = 'https://tally.so/r/VL2MYy';
+const TALLY_URL = 'checkout.html'; // now points to the local checkout page (your header + embedded Tally form), which forwards these same params into the embed
 try{ const saved = JSON.parse(localStorage.getItem('rg_cart')||'[]'); if(Array.isArray(saved)) cart = saved.filter(function(id){return CATALOG[id];}); }catch(e){}
 function saveCart(){ try{ localStorage.setItem('rg_cart', JSON.stringify(cart)); }catch(e){} }
 function toast(msg){
