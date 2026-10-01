@@ -627,6 +627,15 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
     </div>
     <div class="sum" id="cartSum"></div>
     <div class="notice" id="physNotice" style="display:none"><span class="ic">&#128230;</span><span><b>Physical items are made to order.</b> Preparation time is <b>5-7 business days</b> after your payment is confirmed, plus delivery time. We'll email you once your payment is verified and message you when it's ready or shipped. No COD.</span></div>
+    <div class="terms" id="physTerms" style="display:none">
+      <b>Terms for physical items</b>
+      <ul>
+        <li>Please double check your name, spelling and address before paying. We print what you submit.</li>
+        <li>Changes are accepted until production starts.</li>
+        <li>If your item arrives damaged, send a photo and an unboxing video within 48 hours of receiving it. The video should show the package being opened, uncut. We'll then replace or fix the item.</li>
+        <li>No COD. We start production after your payment is verified.</li>
+      </ul>
+    </div>
     <div class="notice"><span class="ic">&#9888;</span><span>Digital items are a <b>digital purchase only</b> — no physical item will be shipped for those. You'll receive a download link after your payment is confirmed.</span></div>
     <div class="terms">
       <b>Terms of use (digital files)</b>
@@ -634,6 +643,7 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
         <li>You may not resell or share these digital files.</li>
         <li>You may not reproduce, duplicate, copy, or redistribute these files in any way.</li>
         <li>You may use these files to create physical products for personal or business use.</li>
+        <li>All digital sales are final. If a link doesn't open or a file is damaged, message us and we'll fix or resend it.</li>
       </ul>
     </div>
     <label class="agree"><input type="checkbox" id="agreeBox" onchange="toggleCheckout()"> I have read and agree to the Terms of Use above.</label>
@@ -740,6 +750,7 @@ function renderCart(){
     sum.innerHTML = '';
     document.getElementById('shipBox').style.display='none';
     document.getElementById('physNotice').style.display='none';
+    document.getElementById('physTerms').style.display='none';
     updateCheckoutState(null);
     return;
   }
@@ -755,6 +766,7 @@ function renderCart(){
   const t = cartTotals();
   document.getElementById('shipBox').style.display = t.hasPhy ? 'block' : 'none';
   document.getElementById('physNotice').style.display = t.hasPhy ? 'flex' : 'none';
+  document.getElementById('physTerms').style.display = t.hasPhy ? 'block' : 'none';
   let h = '';
   if(t.digital) h += '<div><span>Digital</span><span>'+peso(t.digital)+'</span></div>';
   if(t.physical) h += '<div><span>Physical</span><span>'+peso(t.physical)+'</span></div>';
