@@ -626,6 +626,7 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
       </select>
     </div>
     <div class="sum" id="cartSum"></div>
+    <div class="notice" id="physNotice" style="display:none"><span class="ic">&#128230;</span><span><b>Physical items are made to order.</b> Preparation time is <b>5-7 business days</b> after your payment is confirmed, plus delivery time. We'll email you once your payment is verified and message you when it's ready or shipped. No COD.</span></div>
     <div class="notice"><span class="ic">&#9888;</span><span>Digital items are a <b>digital purchase only</b> — no physical item will be shipped for those. You'll receive a download link after your payment is confirmed.</span></div>
     <div class="terms">
       <b>Terms of use (digital files)</b>
@@ -738,6 +739,7 @@ function renderCart(){
     list.innerHTML = '<div class="drawer-empty">Your cart is empty</div>';
     sum.innerHTML = '';
     document.getElementById('shipBox').style.display='none';
+    document.getElementById('physNotice').style.display='none';
     updateCheckoutState(null);
     return;
   }
@@ -752,6 +754,7 @@ function renderCart(){
   }).join('');
   const t = cartTotals();
   document.getElementById('shipBox').style.display = t.hasPhy ? 'block' : 'none';
+  document.getElementById('physNotice').style.display = t.hasPhy ? 'flex' : 'none';
   let h = '';
   if(t.digital) h += '<div><span>Digital</span><span>'+peso(t.digital)+'</span></div>';
   if(t.physical) h += '<div><span>Physical</span><span>'+peso(t.physical)+'</span></div>';
