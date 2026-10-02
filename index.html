@@ -710,6 +710,13 @@ function go(id, e){
 window.addEventListener('DOMContentLoaded', function(){
   const initial = (location.hash || '#home').replace('#','');
   showPage(document.getElementById('page-'+initial) ? initial : 'home', false);
+  const params = new URLSearchParams(location.search);
+  if(params.get('openCart') === '1'){ openCart(); }
+  const q = params.get('q');
+  if(q){
+    const input = document.getElementById('searchInput');
+    if(input){ input.value = q; runSearch(); }
+  }
 });
 
 /* ---- cart ---- */
