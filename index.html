@@ -50,6 +50,7 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
 .btn-muted{background:var(--surface);color:var(--muted);border:1px solid var(--border);font-size:13.5px;padding:11px;cursor:default;}
 .feature-img{aspect-ratio:1/1;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid var(--border);position:relative;transition:box-shadow .15s, transform .15s;}
 .feature-img:hover{box-shadow:0 6px 20px rgba(0,0,0,.08);transform:translateY(-2px);}
+a.feature-img{display:block;text-decoration:none;}
 .feature-img.static{cursor:default;}
 .feature-img.static:hover{box-shadow:none;transform:none;}
 .feature-img img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -57,6 +58,7 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
 .feature-body{text-align:center;padding-top:14px;}
 .feature-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;}
 .feature-price{font-family:'Poppins',sans-serif;font-weight:800;font-size:24px;color:var(--teal);margin-top:4px;}
+.feature-sub{font-size:13px;line-height:1.55;color:var(--muted,#5C6B6B);margin-top:8px;}
 .feature-actions{display:flex;flex-direction:column;gap:9px;margin-top:14px;}
 .btn-coral{background:var(--coral);color:#4A1B0C;}
 .btn-coral.small{font-size:12px;padding:8px 13px;border-radius:7px;}
@@ -302,6 +304,16 @@ section.inner{width:100%;padding:clamp(32px,6vw,52px) clamp(16px,5vw,64px);}
             <button class="btn btn-coral big" onclick="addToCart('DIG-BUN-LRN')">Add to cart</button>
             <button class="btn btn-outline-teal" onclick="toggleGrid('learning')">Shop individual designs instead</button>
           </div>
+        </div>
+      </div>
+
+      <div class="feature-card more-templates">
+        <a class="feature-img" href="#digital" onclick="return openMoreTemplates(event)" aria-label="Explore more digital templates">
+          <img src="assets/images/img-more-templates.jpg" alt="More Templates - Click Here" loading="lazy">
+        </a>
+        <div class="feature-body">
+          <div class="feature-name">Explore More Digital Templates!</div>
+          <div class="feature-sub">Discover our growing collection of digital templates, ready-to-print files, editable Canva designs, and creative resources perfect for your personal projects, crafting needs, and small business. New templates are added regularly, so there's always something new to explore! 🛍️💖</div>
         </div>
       </div>
     </div>
@@ -881,6 +893,18 @@ function openCart(){ document.getElementById('drawer').classList.add('open'); do
 function closeCart(){ document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
 renderCart();
 const GRID_IDS = {'': 'individualWrap', 'sticker': 'stickerIndividualWrap', 'learning': 'learningIndividualWrap'};
+// Where the "Explore More Digital Templates" image goes. Paste a full link (https://...) to open it in a new tab.
+// Leave it empty and the image just opens the individual designs list on this page.
+const MORE_TEMPLATES_URL = '';
+function openMoreTemplates(e){
+  if(e) e.preventDefault();
+  if(MORE_TEMPLATES_URL){ window.open(MORE_TEMPLATES_URL, '_blank', 'noopener'); return false; }
+  showPage('digital');
+  toggleGrid();
+  const el = document.getElementById('individualWrap');
+  if(el){ setTimeout(function(){ el.scrollIntoView({behavior:'smooth', block:'start'}); }, 50); }
+  return false;
+}
 function toggleGrid(which){
   const id = GRID_IDS[which || ''];
   const el = document.getElementById(id);
