@@ -10,9 +10,13 @@ body{font-family:'Inter',sans-serif;background:#FFFFFF;color:var(--text);}
 
 /* ---- shared header (same as index.html) ---- */
 header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);}
-nav{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px clamp(16px,5vw,64px);}
+nav{width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 16px;padding:12px clamp(16px,5vw,64px);}
+nav .logo{justify-self:start;}
+.navtools{display:flex;align-items:center;gap:clamp(10px,1.6vw,18px);justify-self:end;}
+@media (max-width:900px){nav{grid-template-columns:auto minmax(0,1fr);}.navlinks{grid-column:1 / -1;grid-row:2;justify-content:center;}nav .navtools{justify-self:stretch;justify-content:flex-end;min-width:0;}nav .searchbox{flex:0 1 200px;min-width:0;}nav .searchbox input{width:100%;min-width:0;}}
+@media (max-width:520px){nav .logo{height:36px;}nav .navtools{gap:8px;}}
 .logo{height:clamp(44px,6vw,64px);width:auto;display:block;cursor:pointer;}
-.navlinks{display:flex;gap:clamp(14px,2.2vw,26px);align-items:center;font-size:clamp(13px,1.4vw,15px);flex-wrap:wrap;}
+.navlinks{display:flex;gap:clamp(14px,2.2vw,28px);align-items:center;justify-content:center;font-size:clamp(13px,1.4vw,15px);flex-wrap:wrap;}
 .navlinks a{color:var(--text);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:2px solid transparent;}
 .cartbtn{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 13px;font-family:'Poppins',sans-serif;font-weight:600;font-size:12.5px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:7px;text-decoration:none;}
 .searchbox{display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 4px 4px 12px;gap:4px;}
@@ -40,6 +44,8 @@ iframe{border:none;width:100%;display:block;}
     <a href="index.html#digital">Digital</a>
     <a href="index.html#about">About</a>
     <a href="index.html#reviews">Reviews</a>
+  </div>
+  <div class="navtools">
     <div class="searchbox">
       <input type="text" id="searchInput" placeholder="Search products..." onkeydown="if(event.key==='Enter'){runSearch();}">
       <button class="search-btn" onclick="runSearch()" aria-label="Search">&#128269;</button>
