@@ -86,6 +86,8 @@ a.feature-img{display:block;text-decoration:none;}
 .incl-list li:before{content:"\2713";position:absolute;left:0;color:var(--teal);font-weight:700;font-size:11px;}
 .incl-list li.more{color:var(--muted);font-style:italic;padding-left:15px;}
 .incl-list li.more:before{content:"";}
+.incl-list li.plain{padding-left:0;}
+.incl-list li.plain:before{content:none;}
 
 /* ---- physical placeholder grid ---- */
 .phy-note{display:inline-block;background:var(--surface);color:var(--muted);font-size:12px;padding:6px 12px;border-radius:20px;margin-bottom:20px;}
@@ -179,6 +181,8 @@ a.feature-img{display:block;text-decoration:none;}
 .qv-incl-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
 .qv-incl-list li{font-size:14.5px;color:var(--text);line-height:1.4;padding-left:24px;position:relative;}
 .qv-incl-list li:before{content:"\2713";position:absolute;left:0;top:0;color:#fff;background:var(--teal);width:17px;height:17px;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.qv-incl-list li.plain{padding-left:0;}
+.qv-incl-list li.plain:before{content:none;}
 .qv-add{width:100%;padding:14px;font-size:15px;}
 @media(max-width:480px){.qv-modal{max-height:94vh;}}
 </style></head>
@@ -989,11 +993,10 @@ function openQuick(i){
     dots.style.display = 'none';
     dots.innerHTML = '';
   }
-  document.getElementById('qvPrev').style.display = multi ? 'flex' : 'none';
-  document.getElementById('qvNext').style.display = multi ? 'flex' : 'none';
+  updateQvArrows();
   document.getElementById('qvName').textContent = p.name;
   document.getElementById('qvPrice').textContent = p.price;
-  document.getElementById('qvInclList').innerHTML = p.inclusions.map(function(x){ return '<li>'+x+'</li>'; }).join('');
+  document.getElementById('qvInclList').innerHTML = p.inclusions.map(function(x){ return '<li'+(hasOwnSymbol(x)?' class="plain"':'')+'>'+x+'</li>'; }).join('');
   const btn = document.getElementById('qvAddBtn');
   btn.onclick = function(){ addToCart(p.id); };
   document.getElementById('qvOverlay').classList.add('open');
@@ -1003,6 +1006,18 @@ function closeQuick(){
   const gallery = document.getElementById('qvGallery');
   gallery.scrollLeft = 0;
   document.querySelectorAll('.qv-dot').forEach(function(d,i){ d.classList.toggle('active', i===0); });
+  updateQvArrows();
+}
+// Show a swipe arrow only when there is another photo in that direction
+// Lines that already start with their own symbol or emoji (like the arrow or sparkle markers) get no check-mark bullet
+function hasOwnSymbol(t){ return /[\u2570\u2508\u27A4\u2600-\u27BF\u2B00-\u2BFF\u{1F000}-\u{1FAFF}]/u.test(t); }
+document.querySelectorAll('.incl-list li:not(.more)').forEach(function(li){ if(hasOwnSymbol(li.textContent)) li.classList.add('plain'); });
+function updateQvArrows(){
+  const g = document.getElementById('qvGallery');
+  const slides = g.querySelectorAll('.qv-slide').length;
+  const idx = Math.round(g.scrollLeft / (g.clientWidth || 1));
+  document.getElementById('qvPrev').style.display = (slides > 1 && idx > 0) ? 'flex' : 'none';
+  document.getElementById('qvNext').style.display = (slides > 1 && idx < slides - 1) ? 'flex' : 'none';
 }
 function qvNav(dir){
   const gallery = document.getElementById('qvGallery');
@@ -1020,6 +1035,7 @@ document.addEventListener('keydown', function(e){
 document.getElementById('qvGallery').addEventListener('scroll', function(){
   const idx = Math.round(this.scrollLeft / (this.clientWidth || 1));
   document.querySelectorAll('.qv-dot').forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  updateQvArrows();
 });
 document.getElementById('qvDots').addEventListener('click', function(e){
   if(!e.target.classList.contains('qv-dot')) return;
