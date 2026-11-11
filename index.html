@@ -95,6 +95,26 @@ a.feature-img{display:block;text-decoration:none;}
 .phy-card{border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff;transition:border-color .15s;}
 .phy-card:hover{border-color:#D8D5CC;}
 body.no-physical .phy-only{display:none!important;}
+/* ---- about ---- */
+.inner.about{max-width:880px;margin:0 auto;padding:clamp(28px,5vw,44px) clamp(18px,5vw,32px) 48px;}
+.ab-teal{color:var(--teal);}
+.ab-story{max-width:640px;margin:0 auto 8px;font-size:15px;line-height:1.7;text-align:center;}
+.ab-story p{margin-bottom:12px;}
+.ab-label{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;text-align:center;margin:clamp(28px,5vw,40px) 0 14px;}
+.ab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.ab-card{border:1px solid var(--border);border-radius:12px;padding:18px;background:#fff;}
+.ab-ic{font-size:24px;margin-bottom:8px;}
+.ab-h{font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;margin-bottom:6px;}
+.ab-p{font-size:13.5px;color:var(--muted);line-height:1.6;}
+.ab-steps{max-width:520px;margin:0 auto;padding-left:22px;font-size:14.5px;line-height:1.6;}
+.ab-steps li{margin-bottom:8px;}
+.ab-steps li::marker{color:var(--coral);font-weight:700;}
+.ab-why{list-style:none;max-width:560px;margin:0 auto;font-size:14.5px;line-height:1.6;}
+.ab-why li{margin-bottom:10px;}
+.ab-contact{text-align:center;margin-top:clamp(32px,5vw,44px);padding:24px 18px;background:var(--surface);border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.ab-todo{background:#FFF4EC;border:1px dashed var(--coral);border-radius:6px;padding:4px 8px;color:#7A3E12;font-size:13px;}
+.ab-todo.center{max-width:520px;margin:6px auto 0;text-align:center;}
+
 .phy-thumb{width:100%;aspect-ratio:1/1;background:var(--surface);display:flex;align-items:center;justify-content:center;position:relative;}
 .phy-thumb i{font-size:34px;color:#B4B2A9;font-style:normal;}
 .phy-tag{position:absolute;top:10px;left:10px;font-size:11px;font-weight:500;padding:5px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;}
@@ -719,11 +739,46 @@ body.no-physical .phy-only{display:none!important;}
 </section>
 
 <section class="page" id="page-about" data-page="about">
-  <div class="inner">
-    <div class="placeholder">
-      <div class="ph-icon">&#128214;</div>
-      <div class="ph-title">About RUSH GRAFIKZ</div>
-      <div class="ph-sub">Your brand story, photos, and what makes RG Crafts &amp; Print Services different goes here. Send me the copy (or bullet points) and I'll build this section next.</div>
+  <div class="inner about">
+    <div class="sec-head">
+      <div class="sec-title">Hi, we're <span class="ab-teal">RUSH GRAFIKZ</span><span class="dot">.</span></div>
+      <div class="sec-sub">RG Crafts &amp; Print Services, a small print and craft shop from Cagayan de Oro.</div>
+    </div>
+
+    <div class="ab-story">
+      <p>We make ready-to-print designs and templates so you can skip the hours of layout work and get straight to printing, crafting, and selling.</p>
+      <p>Whether you run a small button pin or sticker business, you're a parent or teacher prepping learning materials for the kids, or you just love making things, our files are built to be easy: print, cut, done.</p>
+      <p class="ab-todo">[ADD: when and why you started RG, 2 to 3 lines in your own words]</p>
+    </div>
+
+    <div class="ab-label">What we offer</div>
+    <div class="ab-grid">
+      <div class="ab-card"><div class="ab-ic">&#127912;</div><div class="ab-h">Digital designs &amp; templates</div><div class="ab-p">Button badge sets, sticker collections, learning materials, and seasonal templates. Ready-to-print PDF/PNG files and editable Canva templates.</div></div>
+      <div class="ab-card"><div class="ab-ic">&#128230;</div><div class="ab-h">Custom prints &amp; crafts</div><div class="ab-p">Made-to-order printed items and handmade crafts from CDO. <b>Coming soon to the shop.</b></div></div>
+      <div class="ab-card"><div class="ab-ic">&#128640;</div><div class="ab-h">Made for small sellers</div><div class="ab-p">Use our files to make products for personal or business use. Many sets come with mockups and guides to help you sell faster.</div></div>
+    </div>
+
+    <div class="ab-label">How ordering works</div>
+    <ol class="ab-steps">
+      <li><b>Add to cart</b> and check out.</li>
+      <li><b>Pay via GCash or Maya</b> and upload your proof of payment.</li>
+      <li><b>We verify</b> your payment.</li>
+      <li><b>Get your files</b> through a Google Drive link sent to your email.</li>
+    </ol>
+    <p class="ab-todo center">[ADD: how fast you usually send links, e.g. "within 24 hours"]</p>
+
+    <div class="ab-label">Why shop with us</div>
+    <ul class="ab-why">
+      <li>&#10024; <b>Growing collections.</b> Some sets keep getting new designs at no extra charge.</li>
+      <li>&#129309; <b>Real person support.</b> If a link doesn't open or a file has an issue, message us and we'll fix or resend it.</li>
+      <li>&#128205; <b>Proudly local.</b> Designed and run from Cagayan de Oro.</li>
+      <li class="ab-todo">[ADD if true: DTI registered, number of happy customers, years in business]</li>
+    </ul>
+
+    <div class="ab-contact">
+      <div class="ab-h">Questions? Message us.</div>
+      <div class="ab-p ab-todo">[ADD: Facebook page link, Messenger link, email, and reply hours]</div>
+      <a class="btn btn-primary" href="#digital" onclick="go('digital',event)">&#11015; Shop Digital Products</a>
     </div>
   </div>
 </section>
