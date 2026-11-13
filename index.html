@@ -72,7 +72,9 @@ a.feature-img{display:block;text-decoration:none;}
 .individual-wrap{display:none;margin-top:clamp(36px,5vw,52px);padding-top:clamp(28px,4vw,36px);border-top:1px solid var(--border);}
 .individual-wrap.open{display:block;}
 .individual-head{font-family:'Poppins',sans-serif;font-weight:600;font-size:17px;margin-bottom:20px;text-align:center;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,220px));justify-content:center;gap:clamp(14px,2.2vw,20px);}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(14px,2.2vw,20px);}
+.grid>.card{flex:0 0 220px;max-width:220px;}
+@media (max-width:520px){.grid>.card{flex:0 0 calc(50% - 7px);max-width:calc(50% - 7px);}.grid .body{padding:10px 10px 12px;}.grid .name{font-size:13px;}}
 .card{border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff;cursor:pointer;transition:border-color .15s, box-shadow .15s, transform .15s;}
 .card:hover{border-color:var(--teal);box-shadow:0 8px 22px rgba(20,116,111,.12);transform:translateY(-3px);}
 .thumb{width:100%;aspect-ratio:1/1;background:var(--surface);overflow:hidden;}
@@ -141,6 +143,31 @@ body.no-physical .phy-only{display:none!important;}
 .rv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
 .rv-chip{border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:13px;background:#fff;max-width:100%;}
 .rv-chip b{font-weight:600;color:var(--muted);font-size:12px;margin-left:6px;white-space:nowrap;}
+/* ---- footer, payments, legal ---- */
+.pay-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;}
+.pay-label{font-size:12px;color:var(--muted);margin-right:2px;}
+.pay-badge{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:4px 9px;font-family:'Poppins',sans-serif;font-weight:600;font-size:12px;color:var(--text);}
+.pay-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--teal);}
+.drawer-pay{margin:0 0 10px;gap:4px;}
+.drawer-pay .pay-badge{padding:3px 6px;font-size:11px;gap:4px;}
+.drawer-pay .pay-badge::before{width:5px;height:5px;}
+.drawer-pay .pay-label{font-size:11px;}
+.site-foot{background:var(--surface);border-top:1px solid var(--border);margin-top:20px;}
+.foot-inner{max-width:880px;margin:0 auto;padding:28px 18px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.foot-links a{background:#FFF4EC;border:1px solid #FFD9BE;color:#B4532A;font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;padding:8px 14px;border-radius:20px;text-decoration:none;}
+.foot-links a:hover{background:var(--coral);color:#4A1B0C;border-color:var(--coral);}
+.foot-social{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.foot-social a{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:#fff;font-size:13px;font-weight:500;padding:8px 14px;border-radius:20px;text-decoration:none;}
+.foot-social a:hover{background:#0F5C58;}
+.foot-copy{font-size:12px;color:var(--muted);}
+.inner.legal{max-width:760px;margin:0 auto;padding:clamp(28px,5vw,44px) clamp(18px,5vw,32px) 48px;font-size:14.5px;line-height:1.7;}
+.legal .eff{text-align:center;font-size:13px;color:var(--muted);margin-top:-12px;margin-bottom:22px;}
+.legal h2{font-family:'Poppins',sans-serif;font-size:17px;margin:24px 0 8px;color:var(--teal);}
+.legal p{margin-bottom:10px;}
+.legal ul{margin:0 0 10px 20px;}
+.legal li{margin-bottom:5px;}
+.legal a{color:var(--teal);}
 .ab-todo{background:#FFF4EC;border:1px dashed var(--coral);border-radius:6px;padding:4px 8px;color:#7A3E12;font-size:13px;}
 .ab-todo.center{max-width:520px;margin:6px auto 0;text-align:center;}
 
@@ -810,7 +837,7 @@ body.no-physical .phy-only{display:none!important;}
     <div class="ab-label">How ordering works</div>
     <ol class="ab-steps">
       <li><b>Add to cart</b> and check out.</li>
-      <li><b>Pay via GCash or Maya</b> and upload your proof of payment.</li>
+      <li><b>Pay via GCash, Maya, MariBank, or any QR Ph app</b> and upload your proof of payment.</li>
       <li><b>We verify</b> your payment.</li>
       <li><b>Get your files</b> through a Google Drive link sent to your email, usually within <b>12 to 24 hours</b>.</li>
     </ol>
@@ -824,7 +851,7 @@ body.no-physical .phy-only{display:none!important;}
       <li>&#128197; <b>2 years and counting.</b> Creating and selling since June 2024.</li>
     </ul>
 
-    <div class="ab-contact">
+    <div class="ab-contact" id="contact">
       <div class="ab-h">Questions? Message us.</div>
       <div class="ab-p">We're open daily, <b>9AM to 9PM</b>.</div>
       <div class="ab-links">
@@ -902,7 +929,143 @@ body.no-physical .phy-only{display:none!important;}
   </div>
 </section>
 
+
+<section class="page" id="page-privacy" data-page="privacy">
+  <div class="inner legal">
+    <div class="sec-head"><div class="sec-title">Privacy Policy<span class="dot">.</span></div></div>
+    <p class="eff">Effective November 13, 2026</p>
+    <p>RUSH GRAFIKZ (RG Crafts &amp; Print Services) respects your privacy. This policy explains what information we collect when you shop with us, why we need it, and how we keep it safe, in line with the Data Privacy Act of 2012 (Republic Act No. 10173).</p>
+
+    <h2>1. What we collect</h2>
+    <ul>
+      <li><b>Order details:</b> the items you buy, totals, and your order reference.</li>
+      <li><b>Contact details:</b> your name, mobile number or Facebook name, and email address.</li>
+      <li><b>Delivery address:</b> only for physical or custom orders.</li>
+      <li><b>Proof of payment:</b> the screenshot you upload, which may show your account name, part of your account number, and the reference number.</li>
+      <li><b>Messages:</b> anything you send us through Messenger, email, or our social pages.</li>
+    </ul>
+    <p>We never ask for your card number, PIN, OTP, or e-wallet password. You pay inside your own GCash, Maya, MariBank, or banking app.</p>
+
+    <h2>2. How we use it</h2>
+    <ul>
+      <li>To verify your payment and confirm your order.</li>
+      <li>To send your Google Drive download link by email.</li>
+      <li>To prepare, ship, or arrange pickup of physical orders.</li>
+      <li>To answer your questions and fix any issues with your files.</li>
+      <li>To keep sales records for our accounting and tax requirements.</li>
+    </ul>
+    <p>We do not sell, rent, or trade your personal information.</p>
+
+    <h2>3. Who we share it with</h2>
+    <p>Only with the tools and partners we need to run the shop:</p>
+    <ul>
+      <li><b>Tally</b> (our checkout form) and <b>Airtable</b> (our order records).</li>
+      <li><b>Google</b> (Drive for file delivery and Gmail for sending your links).</li>
+      <li><b>Couriers and riders</b> such as J&amp;T and Maxim, who receive only your name, number, and address to deliver physical orders.</li>
+    </ul>
+    <p>Some of these services store data on servers outside the Philippines.</p>
+
+    <h2>4. Your cart and this website</h2>
+    <p>Your cart is saved in your own browser so it's still there when you come back. It isn't sent to us until you check out. We don't use advertising or tracking cookies. Some pages load fonts from Google and the checkout form from Tally, which may receive basic technical information such as your IP address.</p>
+
+    <h2>5. How long we keep it</h2>
+    <p>We keep your information only as long as we need it to complete your order, handle any follow-up concerns, and meet our accounting and legal obligations. After that, we delete it.</p>
+
+    <h2>6. How we protect it</h2>
+    <p>Only the people running RUSH GRAFIKZ can access your order details. We use reputable platforms and keep our accounts secured.</p>
+
+    <h2>7. Your rights</h2>
+    <p>Under the Data Privacy Act, you can ask us to show you, correct, or delete the personal information we hold about you, or object to how we use it. Just message us using the details below. If you believe your data privacy rights were violated, you may also file a complaint with the National Privacy Commission (<a href="https://privacy.gov.ph" target="_blank" rel="noopener">privacy.gov.ph</a>).</p>
+
+    <h2>8. Changes to this policy</h2>
+    <p>We may update this policy from time to time. The latest version will always be on this page, with the effective date at the top.</p>
+
+    <h2>Contact us</h2>
+    <p>Email <a href="mailto:rush.grafikz@gmail.com">rush.grafikz@gmail.com</a>, call or text <a href="tel:+639387150465">0938 715 0465</a>, or message our <a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener">Facebook page</a>. We're open daily, 9AM to 9PM.</p>
+  </div>
+</section>
+
+<section class="page" id="page-terms" data-page="terms">
+  <div class="inner legal">
+    <div class="sec-head"><div class="sec-title">Terms &amp; Conditions<span class="dot">.</span></div></div>
+    <p class="eff">Effective November 13, 2026</p>
+    <p>These terms apply when you buy from RUSH GRAFIKZ (RG Crafts &amp; Print Services) through this website or our social pages. By placing an order, you agree to them.</p>
+
+    <h2>1. Orders and payment</h2>
+    <ul>
+      <li>All prices are in Philippine Pesos (₱). Prices may change, but the price shown when you check out is the price you pay.</li>
+      <li>We accept GCash, Maya, MariBank, and any QR Ph app. Please put your Order Ref in the payment note and upload your proof of payment at checkout.</li>
+      <li>Your order is confirmed only after we verify your payment.</li>
+      <li>We don't offer Cash on Delivery (COD).</li>
+    </ul>
+
+    <h2>2. Digital products</h2>
+    <ul>
+      <li>Digital items are files only. Nothing will be shipped.</li>
+      <li>We send a Google Drive link to your email, usually within 12 to 24 hours after your payment is verified.</li>
+      <li>Please download and save your files as soon as you receive them.</li>
+      <li>When a collection says new designs are added at no extra charge, you'll get those through the same link.</li>
+    </ul>
+
+    <h2>3. How you can use our files</h2>
+    <p><b>You may:</b> use our files to print and make physical products, like button pins, stickers, and learning materials, for personal use or to sell.</p>
+    <p><b>You may not:</b></p>
+    <ul>
+      <li>Resell, share, or give away the digital files or your Drive link.</li>
+      <li>Upload our files to template sites, group drives, or file-sharing groups.</li>
+      <li>Claim our designs as your own.</li>
+    </ul>
+    <p>If we find a link being shared, we may remove access to it.</p>
+
+    <h2>4. Fan-inspired designs</h2>
+    <p>Some designs feature characters, artists, or brands that belong to their respective owners. RUSH GRAFIKZ does not own those characters or brands and isn't affiliated with them. You are responsible for how you use these designs, especially when selling products made from them.</p>
+
+    <h2>5. Refunds and file issues</h2>
+    <ul>
+      <li>All digital sales are final, since files can't be returned once delivered.</li>
+      <li>If a link doesn't open or a file is damaged or incomplete, message us and we'll fix or resend it.</li>
+    </ul>
+
+    <h2>6. Physical and custom orders</h2>
+    <p>Physical products aren't on the website yet. To order, message our Facebook page.</p>
+    <ul>
+      <li>Items are made to order. Preparation takes 5 to 7 business days after payment is verified, plus delivery time.</li>
+      <li>Custom orders need a 50% downpayment to start. The balance is due before release or shipping.</li>
+      <li>Please double check names, spelling, and your address before paying. We print what you submit.</li>
+      <li>Changes are accepted until production starts.</li>
+      <li>Within Cagayan de Oro, you can pick up or book a Maxim rider (you pay the rider). Outside CDO, we ship via J&amp;T.</li>
+      <li>Printed colors may look slightly different from what you see on your screen.</li>
+      <li>If your item arrives damaged, send us a photo and an uncut unboxing video within 48 hours of receiving it, and we'll replace or fix it.</li>
+    </ul>
+
+    <h2>7. Limitation of liability</h2>
+    <p>Our files are provided as described. Print results can vary depending on your printer, settings, and materials. Our liability for any order is limited to the amount you paid for it.</p>
+
+    <h2>8. Changes and governing law</h2>
+    <p>We may update these terms from time to time. The version on this page applies to orders placed after the effective date shown above. These terms are governed by the laws of the Philippines.</p>
+
+    <h2>Contact us</h2>
+    <p>Email <a href="mailto:rush.grafikz@gmail.com">rush.grafikz@gmail.com</a>, call or text <a href="tel:+639387150465">0938 715 0465</a>, or message our <a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener">Facebook page</a>. We're open daily, 9AM to 9PM.</p>
+  </div>
+</section>
+
 </main>
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div class="pay-row"><span class="pay-label">We accept</span><span class="pay-badge">GCash</span><span class="pay-badge">Maya</span><span class="pay-badge">QR Ph</span><span class="pay-badge">MariBank</span></div>
+    <div class="foot-links">
+      <a href="#privacy" onclick="go('privacy',event)">Privacy Policy</a>
+      <a href="#about" onclick="goContact(event)">Contact Us</a>
+      <a href="#terms" onclick="go('terms',event)">Terms &amp; Conditions</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9h3zM7 11l4-7c1.5 0 2.5 1 2.2 2.6L12.6 10H18a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 16.8 20H7"/></svg><span>Facebook</span></a>
+      <a href="https://www.tiktok.com/@rush_grafikz" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>TikTok</span></a>
+      <a href="https://instagram.com/rg_prints.crafts" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Instagram</span></a>
+    </div>
+    <div class="foot-copy">&copy; 2026 RUSH GRAFIKZ &middot; RG Crafts &amp; Print Services &middot; Cagayan de Oro, Philippines</div>
+  </div>
+</footer>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <div class="drawer" id="drawer">
@@ -939,7 +1102,8 @@ body.no-physical .phy-only{display:none!important;}
         <li>All digital sales are final. If a link doesn't open or a file is damaged, message us and we'll fix or resend it.</li>
       </ul>
     </div>
-    <label class="agree"><input type="checkbox" id="agreeBox" onchange="toggleCheckout()"> I have read and agree to the Terms of Use above.</label>
+    <label class="agree"><input type="checkbox" id="agreeBox" onchange="toggleCheckout()"> <span>I have read and agree to the Terms of Use above and the <a href="#terms" onclick="event.preventDefault();event.stopPropagation();closeCart();go('terms');">Terms &amp; Conditions</a>.</span></label>
+    <div class="pay-row drawer-pay"><span class="pay-label">Pay with</span><span class="pay-badge">GCash</span><span class="pay-badge">Maya</span><span class="pay-badge">QR Ph</span><span class="pay-badge">MariBank</span></div>
     <button class="btn-checkout" id="checkoutBtn" onclick="goCheckout()">Proceed to checkout</button>
   </div>
 </div>
@@ -994,7 +1158,18 @@ function showPage(id, updateHash){
 }
 function go(id, e){
   if(e) e.preventDefault();
+  resetCatalog();
   showPage(id);
+}
+// Closes any open "individual designs" list and clears search, so each visit to a page starts fresh
+function resetCatalog(){
+  document.querySelectorAll('.individual-wrap.open').forEach(function(el){ el.classList.remove('open'); });
+  document.querySelectorAll('.card, .phy-card').forEach(function(c){ c.style.display=''; });
+  const si = document.getElementById('searchInput'); if(si) si.value='';
+}
+function goContact(e){
+  go('about', e);
+  setTimeout(function(){ const c=document.getElementById('contact'); if(c) c.scrollIntoView({behavior:'smooth', block:'center'}); }, 60);
 }
 window.addEventListener('DOMContentLoaded', function(){
   let initial = (location.hash || '#home').replace('#','');
@@ -1114,6 +1289,7 @@ const GRID_IDS = {'': 'individualWrap', 'sticker': 'stickerIndividualWrap', 'lea
 // "Explore More Digital Templates" image opens the more-templates list, same as the bundle cards open theirs
 function openMoreTemplates(e){
   if(e) e.preventDefault();
+  resetCatalog();
   showPage('digital');
   toggleGrid('more');
   return false;
