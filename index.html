@@ -124,6 +124,23 @@ body.no-physical .phy-only{display:none!important;}
 .ab-links a{background:#fff;border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:13.5px;color:var(--text);text-decoration:none;white-space:nowrap;}
 .ab-links a:hover{border-color:var(--teal);color:var(--teal);}
 .ab-fb{color:var(--teal);text-decoration:underline;}
+/* ---- reviews ---- */
+.inner.reviews{max-width:1040px;margin:0 auto;padding:clamp(28px,5vw,44px) clamp(18px,5vw,32px) 48px;}
+.rv-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:640px;margin:0 auto 14px;}
+.rv-stats div{background:var(--surface);border-radius:12px;padding:14px 8px;text-align:center;}
+.rv-stats b{display:block;font-family:'Poppins',sans-serif;font-size:clamp(18px,3vw,24px);color:var(--teal);}
+.rv-stats span{font-size:12px;color:var(--muted);}
+.rv-word{text-align:center;font-size:14px;color:var(--muted);margin-bottom:clamp(22px,4vw,32px);}
+.rv-word span{font-family:'Poppins',sans-serif;font-weight:700;color:var(--coral);font-size:16px;}
+.rv-grid{columns:3 280px;column-gap:14px;}
+.rv-card{break-inside:avoid;margin:0 0 14px;border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:#fff;font-size:14px;line-height:1.6;}
+.rv-card p{margin-bottom:8px;}
+.rv-card figcaption{font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:var(--teal);margin-top:4px;}
+.rv-card figcaption::before{content:'\2014  ';color:var(--coral);}
+.rv-tag{display:inline-block;background:#FFF4EC;color:#B4532A;font-size:11px;font-weight:600;border-radius:10px;padding:2px 9px;margin-bottom:8px;}
+.rv-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
+.rv-chip{border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:13px;background:#fff;max-width:100%;}
+.rv-chip b{font-weight:600;color:var(--muted);font-size:12px;margin-left:6px;white-space:nowrap;}
 .ab-todo{background:#FFF4EC;border:1px dashed var(--coral);border-radius:6px;padding:4px 8px;color:#7A3E12;font-size:13px;}
 .ab-todo.center{max-width:520px;margin:6px auto 0;text-align:center;}
 
@@ -822,11 +839,65 @@ body.no-physical .phy-only{display:none!important;}
 </section>
 
 <section class="page" id="page-reviews" data-page="reviews">
-  <div class="inner">
-    <div class="placeholder">
-      <div class="ph-icon">&#11088;</div>
-      <div class="ph-title">Customer Reviews</div>
-      <div class="ph-sub">This is where your Facebook page reviews get embedded or shown as curated screenshots. Point me to the reviews you want featured and I'll wire this up.</div>
+  <div class="inner reviews">
+    <div class="sec-head">
+      <div class="sec-title">Customer Reviews<span class="dot">.</span></div>
+      <div class="sec-sub">Real words from real buyers, straight from our Facebook page.</div>
+    </div>
+    <div class="rv-stats">
+      <div><b>100+</b><span>reviews on Facebook</span></div>
+      <div><b>2.7K+</b><span>Facebook followers</span></div>
+      <div><b>Since 2024</b><span>creating &amp; selling</span></div>
+    </div>
+    <div class="rv-word">The word our buyers use most: <span>&ldquo;Legit!&rdquo; &#128175;</span></div>
+
+    <div class="rv-grid">
+      <figure class="rv-card"><span class="rv-tag">Badge template</span><p>Highly recommended itong badge template! 🙌 Legit talaga 👌 sobrang user-friendly at madaling i-customize dahil drag-and-drop lang siya. Perfect for those na gusto gumawa ng sariling design from scratch pero guided pa rin.</p><p>May complete instructions, may badge mockup at may video tutorial pa, kaya hindi ka maliligaw kahit first time mong gumawa. Napaka-convenient gamitin at very beginner-friendly.</p><p>Sulit na sulit, thank you sa detailed guide! 💕👌</p><figcaption>Mhdz M.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Bundle deal</span><p>I had such a great experience with this seller! She's approachable, friendly and I managed to snag a bundle deal that came with some awesome freebies. I'm so happy and satisfied! You definitely want to check out her templates! 🙂</p><figcaption>Bel L.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Fast delivery</span><p>4 mins transaction. LEGIT 💯 Thank you so much 💕</p><figcaption>Yenna M.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Accommodating</span><p>Very accommodating. Naghanap ako ng ibang size, matic ginawan agad ng paraan. Sumasagot din sya sa mga queries kc d ako marunong. Salamat po</p><figcaption>Jonie C.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Honest seller</span><p>Super legit, nabalik pa nga sobra kung binayad ahaha tas may pa free pa na tracing pad template 🤩</p><figcaption>Jamyde T.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Beginner friendly</span><p>Salamat, napaka supportive nya sa mga katulad kong newbie, may mga tips din na binibigay para iguide ka, thank you very much ❤️</p><figcaption>May Bellene L.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Fast &amp; responsive</span><p>Thank you so much po! Ang bilis ng transaction and very responsive po sila sa mga tanong ko, lalo na't newbie pa po ako dito.. 💯 legit na legit po</p><figcaption>Jesse Natalia D.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Print shop</span><p>Thank you so much po 100% legit ang gaganda ng mga design 🙂 thank you for sharing po</p><figcaption>AC Printing and Copyshop</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">For new crafters</span><p>Thank you so much po very legit.. laking tulong po sa aming mga bagong crafters ung mga templates. Godbless po ❤️</p><figcaption>Candy D. C.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Generous</span><p>Super generous. Grabe. Wala akong masabi. Super legit. Salamat sa magagandang designs.</p><figcaption>Charlote B. P.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Just right</span><p>Legit. Thank you so very much, just perfect for what I was looking for.</p><figcaption>Erin O.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Worth it</span><p>Legit po, avail na. Sulit ang ibabayad nyo.</p><figcaption>Rica O. V.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Quality</span><p>Sobrang high qual ng mga templates and sobrang gaganda &lt;33</p><figcaption>Angel Claire M.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Canva copy</span><p>Thank you so much, received canva copy na po... Super legit bilis ng transaction 😊 mukhang marami mabubudol na kidos sa magagawa kung galing sa template niyo 😁</p><figcaption>Ap O.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Budget friendly</span><p>Legit po xa.. budget friendly... thank you po..</p><figcaption>Fatima D. T.</figcaption></figure>
+      <figure class="rv-card"><span class="rv-tag">Super helpful</span><p>Thank you po 🥹 ang gaganda, madaming pggagamitan, super helpful ❤️ God bless you po</p><figcaption>Charmm M.</figcaption></figure>
+    </div>
+
+    <div class="ab-label">More love from our buyers</div>
+    <div class="rv-chips">
+      <div class="rv-chip"><span>&ldquo;Legit po. Thank you for smooth transaction&rdquo;</span><b>Tintin C.</b></div>
+      <div class="rv-chip"><span>&ldquo;Super cute ng mga stickers 🫶&rdquo;</span><b>Pop A.</b></div>
+      <div class="rv-chip"><span>&ldquo;Gaganda ng BINI stickers.. super legit 💯✨&rdquo;</span><b>Mary Mae A.</b></div>
+      <div class="rv-chip"><span>&ldquo;Super legit. Very useful templates.&rdquo;</span><b>Ariane C.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit and very accommodating! ❤️❤️❤️&rdquo;</span><b>Stanley A. G.</b></div>
+      <div class="rv-chip"><span>&ldquo;Very accommodating. Highly recommended 💯 cutie ng chibis hehe&rdquo;</span><b>Michal G. M.</b></div>
+      <div class="rv-chip"><span>&ldquo;Highly recommended 💯 very kind ang seller. God bless po&rdquo;</span><b>Zai N. M. N.</b></div>
+      <div class="rv-chip"><span>&ldquo;Super legit. Ganda ng mga template 😍&rdquo;</span><b>Maria R.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit nga, ang cute pa ng mga design hihi 🥰&rdquo;</span><b>Ruffa M.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit and very generous 🤩&rdquo;</span><b>Glezyl P. S.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit! Useful files, thank you po! 🥰&rdquo;</span><b>Meizy O.</b></div>
+      <div class="rv-chip"><span>&ldquo;A trustworthy organization, totally legit! ✅&rdquo;</span><b>Ma Diana D.</b></div>
+      <div class="rv-chip"><span>&ldquo;Super legit. Di paasa. 💕&rdquo;</span><b>Kimberly J. D. L.</b></div>
+      <div class="rv-chip"><span>&ldquo;Thank you so much for the creative templates. Legit po.&rdquo;</span><b>Hannah F.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit po at ganda ng mga templates&rdquo;</span><b>Jessabelle B.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit po 🫶 thank you sa sulit at napaka gandang template 💯&rdquo;</span><b>April R. C.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit na legit 👌 saka talagang iaassist ka&rdquo;</span><b>Eph H. B.</b></div>
+      <div class="rv-chip"><span>&ldquo;This is heaven.. thank you so much 💕 💯 ✅&rdquo;</span><b>Bbln M.</b></div>
+      <div class="rv-chip"><span>&ldquo;Legit at ang ganda po!!!&rdquo;</span><b>Dani E.</b></div>
+      <div class="rv-chip"><span>&ldquo;Super legit and generous 🥰🥰🥰&rdquo;</span><b>Kemerut Y.</b></div>
+    </div>
+
+    <div class="ab-contact">
+      <div class="ab-h">Read every review on our Facebook page</div>
+      <div class="ab-links"><a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener">&#128077; See all reviews on Facebook</a></div>
+      <a class="btn btn-primary" href="#digital" onclick="go('digital',event)">&#11015; Shop Digital Products</a>
     </div>
   </div>
 </section>
