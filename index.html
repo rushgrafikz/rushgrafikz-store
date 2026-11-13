@@ -152,6 +152,12 @@ body.no-physical .phy-only{display:none!important;}
 .drawer-pay .pay-badge{padding:3px 6px;font-size:11px;gap:4px;}
 .drawer-pay .pay-badge::before{width:5px;height:5px;}
 .drawer-pay .pay-label{font-size:11px;}
+.pay-block{width:100%;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.pay-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;color:var(--muted);letter-spacing:.3px;}
+.pay-logos{display:grid;grid-template-columns:repeat(4,minmax(0,150px));justify-content:center;gap:10px;width:100%;}
+.pay-logo{background:#fff;border:1px solid var(--border);border-radius:10px;height:58px;padding:8px 12px;display:flex;align-items:center;justify-content:center;}
+.pay-logo img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
+@media (max-width:560px){.pay-logos{grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px;}.pay-logo{height:54px;}}
 .site-foot{background:var(--surface);border-top:1px solid var(--border);margin-top:20px;}
 .foot-inner{max-width:880px;margin:0 auto;padding:28px 18px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
@@ -298,7 +304,15 @@ body.no-physical .phy-only{display:none!important;}
   </div>
 <footer class="site-foot">
   <div class="foot-inner">
-    <div class="pay-row"><span class="pay-label">We accept</span><span class="pay-badge">GCash</span><span class="pay-badge">Maya</span><span class="pay-badge">QR Ph</span><span class="pay-badge">MariBank</span></div>
+    <div class="pay-block">
+      <div class="pay-title">We accept</div>
+      <div class="pay-logos">
+        <div class="pay-logo"><img src="assets/images/pay-gcash.png" alt="GCash" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-maya.png" alt="Maya" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-qrph.png" alt="QR Ph" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-maribank.png" alt="MariBank" loading="lazy"></div>
+      </div>
+    </div>
     <div class="foot-links">
       <a href="#privacy" onclick="go('privacy',event)">Privacy Policy</a>
       <a href="#about" onclick="goContact(event)">Contact Us</a>
