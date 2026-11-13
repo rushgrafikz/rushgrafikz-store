@@ -9,7 +9,10 @@ html,body{width:100%;overflow-x:clip;}
 body{font-family:'Inter',sans-serif;background:#FFFFFF;color:var(--text);}
 
 /* ---- shared header ---- */
-header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);}
+header{position:fixed;top:0;left:0;right:0;z-index:20;background:#fff;border-bottom:1px solid var(--border);transition:box-shadow .2s;}
+header.scrolled{box-shadow:0 4px 14px rgba(31,42,42,.08);}
+body{padding-top:var(--hdr,88px);}
+html{scroll-padding-top:calc(var(--hdr,88px) + 8px);}
 nav{width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px 16px;padding:12px clamp(16px,5vw,64px);}
 nav .logo{justify-self:start;}
 .navtools{display:flex;align-items:center;gap:clamp(10px,1.6vw,18px);justify-self:end;}
@@ -32,7 +35,7 @@ nav .logo{justify-self:start;}
 
 /* ---- home / hero ---- */
 .hero{width:100%;text-align:center;padding:clamp(40px,7vw,72px) clamp(16px,5vw,64px);}
-h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(30px,6vw,52px);line-height:1.14;color:var(--teal);margin-bottom:clamp(14px,2.5vw,20px);}
+h1{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(18px,5.4vw,52px);white-space:nowrap;line-height:1.14;color:var(--teal);margin-bottom:clamp(14px,2.5vw,20px);}
 h1 .accent{color:var(--coral);}
 .hero-banner{width:100%;max-width:min(880px,94vw);height:auto;display:block;margin:0 auto clamp(28px,4vw,40px);}
 .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
@@ -158,6 +161,11 @@ body.no-physical .phy-only{display:none!important;}
 .pay-logo{background:#fff;border:1px solid var(--border);border-radius:10px;height:58px;padding:8px 12px;display:flex;align-items:center;justify-content:center;}
 .pay-logo img{max-width:100%;max-height:100%;object-fit:contain;display:block;}
 @media (max-width:560px){.pay-logos{grid-template-columns:repeat(2,minmax(0,1fr));max-width:340px;}.pay-logo{height:54px;}}
+/* footer: links + socials on Home, Digital, About (Contact), Privacy, Terms; payment logos on Home only */
+.site-foot{display:none;}
+body[data-page="home"] .site-foot,body[data-page="digital"] .site-foot,body[data-page="about"] .site-foot,body[data-page="privacy"] .site-foot,body[data-page="terms"] .site-foot{display:block;}
+.site-foot .pay-block{display:none;}
+body[data-page="home"] .site-foot .pay-block{display:flex;}
 .site-foot{background:var(--surface);border-top:1px solid var(--border);margin-top:20px;}
 .foot-inner{max-width:880px;margin:0 auto;padding:28px 18px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
@@ -295,37 +303,14 @@ body.no-physical .phy-only{display:none!important;}
 
 <section class="page" id="page-home" data-page="home">
   <div class="hero">
-    <h1>Print it. Craft it.<br><span class="accent">Create it.</span></h1>
+    <h1>Print it. Craft it. <span class="accent">Create it.</span></h1>
     <img class="hero-banner" src="assets/images/img-0a59ae8baa.png" alt="Custom prints, handmade crafts, and digital designs all in one place.">
     <div class="cta">
       <a class="btn btn-primary" href="#digital" onclick="go('digital',event)">&#11015; Shop Digital Products</a>
       <a class="btn btn-outline phy-only" href="#physical" onclick="go('physical',event)">&#128230; Shop Physical Products</a>
     </div>
   </div>
-<footer class="site-foot">
-  <div class="foot-inner">
-    <div class="pay-block">
-      <div class="pay-title">We accept</div>
-      <div class="pay-logos">
-        <div class="pay-logo"><img src="assets/images/pay-gcash.png" alt="GCash" loading="lazy"></div>
-        <div class="pay-logo"><img src="assets/images/pay-maya.png" alt="Maya" loading="lazy"></div>
-        <div class="pay-logo"><img src="assets/images/pay-qrph.png" alt="QR Ph" loading="lazy"></div>
-        <div class="pay-logo"><img src="assets/images/pay-maribank.png" alt="MariBank" loading="lazy"></div>
-      </div>
-    </div>
-    <div class="foot-links">
-      <a href="#privacy" onclick="go('privacy',event)">Privacy Policy</a>
-      <a href="#about" onclick="goContact(event)">Contact Us</a>
-      <a href="#terms" onclick="go('terms',event)">Terms &amp; Conditions</a>
-    </div>
-    <div class="foot-social">
-      <a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9h3zM7 11l4-7c1.5 0 2.5 1 2.2 2.6L12.6 10H18a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 16.8 20H7"/></svg><span>Facebook</span></a>
-      <a href="https://www.tiktok.com/@rush_grafikz" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>TikTok</span></a>
-      <a href="https://instagram.com/rg_prints.crafts" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Instagram</span></a>
-    </div>
-    <div class="foot-copy">&copy; 2026 RUSH GRAFIKZ &middot; RG Crafts &amp; Print Services &middot; Cagayan de Oro, Philippines</div>
-  </div>
-</footer>
+
 </section>
 
 <section class="page phy-only" id="page-physical" data-page="physical">
@@ -1081,6 +1066,31 @@ body.no-physical .phy-only{display:none!important;}
 
 </main>
 
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div class="pay-block">
+      <div class="pay-title">We accept</div>
+      <div class="pay-logos">
+        <div class="pay-logo"><img src="assets/images/pay-gcash.png" alt="GCash" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-maya.png" alt="Maya" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-qrph.png" alt="QR Ph" loading="lazy"></div>
+        <div class="pay-logo"><img src="assets/images/pay-maribank.png" alt="MariBank" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="foot-links">
+      <a href="#privacy" onclick="go('privacy',event)">Privacy Policy</a>
+      <a href="#about" onclick="goContact(event)">Contact Us</a>
+      <a href="#terms" onclick="go('terms',event)">Terms &amp; Conditions</a>
+    </div>
+    <div class="foot-social">
+      <a href="https://www.facebook.com/profile.php?id=61560197206045" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9h3zM7 11l4-7c1.5 0 2.5 1 2.2 2.6L12.6 10H18a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 16.8 20H7"/></svg><span>Facebook</span></a>
+      <a href="https://www.tiktok.com/@rush_grafikz" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg><span>TikTok</span></a>
+      <a href="https://instagram.com/rg_prints.crafts" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Instagram</span></a>
+    </div>
+    <div class="foot-copy">&copy; 2026 RUSH GRAFIKZ &middot; RG Crafts &amp; Print Services &middot; Cagayan de Oro, Philippines</div>
+  </div>
+</footer>
+
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <div class="drawer" id="drawer">
@@ -1165,6 +1175,7 @@ function showPage(id, updateHash){
   document.querySelectorAll('.page').forEach(function(el){ el.classList.remove('active'); });
   const target = document.getElementById('page-'+id);
   (target || document.getElementById('page-home')).classList.add('active');
+  document.body.dataset.page = target ? id : 'home';
   document.querySelectorAll('.navlinks a[data-page]').forEach(function(a){
     a.classList.toggle('active', a.dataset.page === id);
   });
@@ -1186,6 +1197,17 @@ function goContact(e){
   go('about', e);
   setTimeout(function(){ const c=document.getElementById('contact'); if(c) c.scrollIntoView({behavior:'smooth', block:'center'}); }, 60);
 }
+/* ---- fixed header: reserve its height, add shadow once scrolled ---- */
+function syncHeader(){
+  const h = document.querySelector('header');
+  if(!h) return;
+  document.documentElement.style.setProperty('--hdr', h.offsetHeight + 'px');
+  h.classList.toggle('scrolled', window.scrollY > 4);
+}
+window.addEventListener('resize', syncHeader);
+window.addEventListener('scroll', function(){ const h=document.querySelector('header'); if(h) h.classList.toggle('scrolled', window.scrollY > 4); }, {passive:true});
+if(window.ResizeObserver){ new ResizeObserver(syncHeader).observe(document.querySelector('header')); }
+syncHeader();
 window.addEventListener('DOMContentLoaded', function(){
   let initial = (location.hash || '#home').replace('#','');
   if(initial==='physical' && !SHOW_PHYSICAL) initial = 'digital';
